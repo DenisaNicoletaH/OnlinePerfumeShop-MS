@@ -1,0 +1,12 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Context.puml
+title System Context Diagram for An Online Perfume Shop
+Person(employee, "Online Perfume Shop Client", "A client from the online perfume shop, with cards for payment.")
+System(system, "Online Perfume Shop", "Allows clients to view and chose products, view discounts, view if available in the inventory,make payments to check out and get deliveries ")
+Rel(employee, system, "Views perfumes,discounts,availability,the checkout and the delivery status ")
+
+SHOW_LEGEND()
+
+
+
+@enduml

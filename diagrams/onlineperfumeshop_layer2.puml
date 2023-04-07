@@ -1,0 +1,72 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!include DEVICONS/java.puml
+!include DEVICONS/mysql.puml
+!include DEVICONS/react.puml
+title System Context Diagram for An Online Perfume Shop
+
+AddElementTag("servicesColor", $bgColor="RoyalBlue")
+AddElementTag("databasesBackground", $bgColor="Orchid",$legendText="database")
+
+AddRelTag("databases", $textColor="orange", $lineColor="orange", $lineStyle = DashedLine())
+
+
+
+
+Person(clients, "Online Perfume Shop Client", "A client from the online perfume shop, with cards for payment.")
+System_Boundary(c1, "Online Perfume Shop System Boundary"){
+    Container(web_app, "Web Application","Java Springboot","Deliver product,inventory,checkout and delivery content in a single page application",$sprite="java")
+
+Container(single_page_app, "Single-Page Application","React","Provides perfume products available for purchasing and clients delivery information via web browser ",$sprite="react")
+
+Container(api_application, "API Gateway","Java Springboot","Provides perfume products,it's availability,discounts via JSON/HTTPS API",$sprite="java")
+
+Container(client_service, "Client-Service", "Java Springboot", "Allows clients to enter information for deliveries by inserting personal information such as first name,last name, address, phone number and email",$tags="servicesColor",$sprite="java")
+ContainerDb(clientdb, "Client Database", "MySQL", "Holds client information such first name,last name, address, phone number and email", $sprite="msql_server",$sprite="mysql",$tags="databasesBackground")
+
+Container(products_service, "Products-Service", "Java Springboot", "Allows clients to view and chose a product,see it's availability from a specific inventory and all or a  products discount",$tags="servicesColor",$sprite="java")
+ContainerDb(productsdb, "Products Database", "MySQL", "Holds products information such as: name,brand,price,status(availability in inventory), date produced, inventory location, it's discount", $sprite="msql_server",$sprite="mysql",$tags="databasesBackground")
+
+
+Container(checkout_service, "Checkout-Service", "Java Springboot", "Chosen products by clients are in checkout, along with discounts,products inventory,availability, products amount,shipping amount,taxes amount,end of sale date, client's payment type and the total amount of the purchase",$tags="servicesColor",$sprite="java")
+ContainerDb(checkoutdb, "Checkout Database", "MySQL", "Holds products information such as: products,discounts,inventory,amount,shipping amount,taxes amount,end of sale date, the payment type and the total amount", $sprite="msql_server",$sprite="mysql",$tags="databasesBackground")
+
+
+Container(delivery_service, "Delivery-Service", "Java Springboot", "Chosen products by clients are being delivered, along with discounts,products inventory,availability, products amount,shipping amount,taxes amount,end of sale date, client's payment type and the total amount of the purchase",$tags="servicesColor", $sprite="java")
+ContainerDb(deliverydb, "Delivery Database", "MySQL", "Holds products information such as: the client's information,products,the checkout information,shipping updates,the arrival time,phone number,the warehouse location,the client's inserted address ", $sprite="msql_server",$sprite="mysql",$tags="databasesBackground")
+
+
+}
+    Rel(clients, web_app, "Visits OnlinePerfumeShop.com using", "HTTPS")
+
+
+    Rel_R(web_app, single_page_app, "Delivers to the client's web browser","")
+    Rel(clients, single_page_app, "View products,discounts and availability","")
+
+
+    Rel(single_page_app, api_application, "Make API calls to","JSON/HTTPS")
+
+
+        Rel(api_application,client_service, "Send requests to ","JSON/HTTPS")
+        Rel_R(client_service,clientdb, "Read from and writes to","JDBC")
+
+
+        Rel(api_application,products_service, "Send requests to","JSON/HTTPS")
+        Rel_R(products_service,productsdb, "Read from and writes to","JDBC")
+
+
+        Rel_L(api_application,checkout_service, "Send requests to","JSON/HTTPS")
+                BiRel(products_service,checkout_service, "Send requests to","JSON/HTTPS")
+        Rel(checkout_service,checkoutdb, "Read from and writes to","JDBC")
+
+
+        Rel(api_application,delivery_service, "Send requests to","JSON/HTTPS")
+                BiRel(client_service,delivery_service, "Send requests to","JSON/HTTPS")
+                BiRel(checkout_service,delivery_service, "Send requests to","JSON/HTTPS")
+        Rel_R(delivery_service,deliverydb, "Read from and writes to","JDBC")
+
+
+
+SHOW_LEGEND()
+@enduml

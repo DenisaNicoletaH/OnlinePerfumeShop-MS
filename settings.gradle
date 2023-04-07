@@ -1,0 +1,5 @@
+include 'api-gateway'
+include 'clients-service'
+include 'delivery-service'
+include 'products-service'
+include 'checkout-service'
