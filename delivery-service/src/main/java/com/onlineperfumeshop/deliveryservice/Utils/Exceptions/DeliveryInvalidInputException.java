@@ -1,4 +1,4 @@
-package Utils.Exceptions;
+package com.onlineperfumeshop.deliveryservice.Utils.Exceptions;
 
 public class DeliveryInvalidInputException extends RuntimeException{
 

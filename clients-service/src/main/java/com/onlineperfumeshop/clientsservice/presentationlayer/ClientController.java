@@ -1,9 +1,10 @@
 package com.onlineperfumeshop.clientsservice.presentationlayer;
 
 
-import Utils.Exceptions.ClientInvalidInputException;
+import com.onlineperfumeshop.clientsservice.Utils.Exceptions.ClientInvalidInputException;
 import com.onlineperfumeshop.clientsservice.businesslayer.ClientService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,15 +23,14 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
-    public ClientResponseModel addClient(@RequestBody ClientRequestModel clientRequestModel) {
+    public ResponseEntity<ClientResponseModel> addClient(@RequestBody ClientRequestModel clientRequestModel) {
         if (!Pattern.compile(postalCode).matcher(clientRequestModel.getPostalCode()).matches()) {
-    throw new ClientInvalidInputException("Invalid postal code" + clientRequestModel.getPostalCode());
+            throw new ClientInvalidInputException("Invalid postal code " + clientRequestModel.getPostalCode());
         } else if (!Pattern.compile(phoneNumber).matcher(clientRequestModel.getPhoneNumber()).matches()) {
-            throw new ClientInvalidInputException("The phone number is invalid" + clientRequestModel.getPhoneNumber());
+            throw new ClientInvalidInputException("The phone number is invalid " + clientRequestModel.getPhoneNumber());
         }else {
-            return clientService.addClient(clientRequestModel);
+            return ResponseEntity.status(HttpStatus.CREATED).body(clientService.addClient(clientRequestModel));
         }
     }
     @GetMapping("/{clientId}")

@@ -2,9 +2,11 @@ package com.onlineperfumeshop.clientsservice.presentationlayer;
 
 import com.onlineperfumeshop.clientsservice.datalayer.Client;
 import com.onlineperfumeshop.clientsservice.datalayer.ClientRepository;
+import jdk.jshell.Snippet;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
@@ -43,7 +45,6 @@ public class ClientControllerIntegrationTest {
     private final String VALID_CLIENTS_CITY = "Vancouver"; //<--- and here
 
 
-
     //gets all clients--> based on sql
     @Sql({"/data-mysql.sql"})
     @Test
@@ -60,6 +61,7 @@ public class ClientControllerIntegrationTest {
 
     }
 
+
     @Test
     public void whenClientIdExists_thenReturnClient() {
 
@@ -73,104 +75,100 @@ public class ClientControllerIntegrationTest {
     }
 
 
-    //POST-->400 ERROR MESSAGE
-        @Test
-        public void whenCreatedClientWithValidValues_ThenReturnNewClient() {
-            String expectedFName = "Denisa";
-            String expectedLName = "Hategan";
-            String expectedEmail = "denisa@gmail.com";
-            String expectedStreetAddress = "35 Flower Road";
-            String expectedCity = "Montreal";
-            String expectedProvince = "Quebec";
-            String expectedPostalCode = "J4T 5J8";
-            String expectedCountry = "Canada";
-            String expectedPhone = "514-221-0070";
-            String expectedCountryCode = "QC";
+    @Test
+    public void whenCreatedClientWithValidValues_ThenReturnNewClient() {
+        String expectedFName = "Denisa";
+        String expectedLName = "Hategan";
+        String expectedEmail = "denisa@gmail.com";
+        String expectedStreetAddress = "35 Flower Road";
+        String expectedCity = "Montreal";
+        String expectedProvince = "Quebec";
+        String expectedPostalCode = "J4T 5J8";
+        String expectedCountry = "Canada";
+        String expectedPhone = "514-221-0070";
+        String expectedCountryCode = "QC";
 
-            ClientRequestModel clientRequestModel = newClientRequestModel(expectedFName, expectedLName, expectedEmail, expectedCity,expectedCountry,expectedStreetAddress,expectedProvince,expectedPostalCode, expectedPhone, expectedCountryCode);
-
-
-            webTestClient.post()
-                    .uri(BASE_URI_CLIENTS )
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .bodyValue(clientRequestModel)
-                    .exchange()
-                    .expectStatus().isCreated()
-                    .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                    .expectBody(ClientResponseModel.class)
-                    .value(val -> {
-                        assertNotNull(val);
-                       assertEquals(val.getFirstName(), expectedFName);
-                       assertEquals(val.getLastName(), expectedLName);
-                       assertEquals(val.getEmailAddress(), expectedEmail);
-                       assertEquals(val.getCity(), expectedCity);
-                       assertEquals(val.getCountry(), expectedCountry);
-                       assertEquals(val.getStreetAddress(), expectedStreetAddress);
-                       assertEquals(val.getProvince(), expectedProvince);
-                       assertEquals(val.getPostalCode(), expectedPostalCode);
-                       assertEquals(val.getPhoneNumber(), expectedPhone);
-                       assertEquals(val.getCountryCode(), expectedCountryCode);
+        ClientRequestModel clientRequestModel = newClientRequestModel(expectedFName, expectedLName, expectedEmail, expectedCity, expectedCountry, expectedStreetAddress, expectedProvince, expectedPostalCode, expectedPhone, expectedCountryCode);
 
 
+        webTestClient.post()
+                .uri(BASE_URI_CLIENTS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .bodyValue(clientRequestModel)
+                .exchange()
+                .expectStatus().isCreated()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody(ClientResponseModel.class)
+                .value(val -> {
+                    assertNotNull(val);
+                    assertEquals(val.getFirstName(), expectedFName);
+                    assertEquals(val.getLastName(), expectedLName);
+                    assertEquals(val.getEmailAddress(), expectedEmail);
+                    assertEquals(val.getCity(), expectedCity);
+                    assertEquals(val.getCountry(), expectedCountry);
+                    assertEquals(val.getStreetAddress(), expectedStreetAddress);
+                    assertEquals(val.getProvince(), expectedProvince);
+                    assertEquals(val.getPostalCode(), expectedPostalCode);
+                    assertEquals(val.getPhoneNumber(), expectedPhone);
+                    assertEquals(val.getCountryCode(), expectedCountryCode);
 
 
-                    });
+                });
 
-        }
+    }
 
-        @Test
-        public void whenUpdatedClientWithValidValues_thenReturnUpdatedClient(){
+    @Test
+    public void whenUpdatedClientWithValidValues_thenReturnUpdatedClient() {
 
-            ClientRequestModel clientRequestModel = newClientRequestModel(VALID_CLIENTS_FIRSTNAME, VALID_CLIENTS_LASTNAME, VALID_CLIENTS_EMAIL, VALID_CLIENTS_CITY,VALID_CLIENTS_COUNTRY,VALID_CLIENTS_STREETADDRESS,VALID_CLIENTS_PROVINCE,VALID_CLIENTS_POSTALCODE, VALID_CLIENTS_PHONENUMBER, VALID_CLIENTS_COUNTRYCODE);
+        ClientRequestModel clientRequestModel = newClientRequestModel(VALID_CLIENTS_FIRSTNAME, VALID_CLIENTS_LASTNAME, VALID_CLIENTS_EMAIL, VALID_CLIENTS_CITY, VALID_CLIENTS_COUNTRY, VALID_CLIENTS_STREETADDRESS, VALID_CLIENTS_PROVINCE, VALID_CLIENTS_POSTALCODE, VALID_CLIENTS_PHONENUMBER, VALID_CLIENTS_COUNTRYCODE);
 
-            webTestClient.put()
-                    .uri(BASE_URI_CLIENTS + "/"+ VALID_CLIENTS_ID)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .bodyValue(clientRequestModel)
-                    .exchange()
-                    .expectStatus().isOk()
-                    .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                    .expectBody()
-                    .jsonPath("$.clientId").isEqualTo(VALID_CLIENTS_ID)
-                    .jsonPath("$.firstName").isEqualTo(VALID_CLIENTS_FIRSTNAME)
-                    .jsonPath("$.lastName").isEqualTo(VALID_CLIENTS_LASTNAME)
-                    .jsonPath("$.emailAddress").isEqualTo(VALID_CLIENTS_EMAIL)
-                    .jsonPath("$.city").isEqualTo(VALID_CLIENTS_CITY)
-                    .jsonPath("$.country").isEqualTo(VALID_CLIENTS_COUNTRY)
-                    .jsonPath("$.streetAddress").isEqualTo(VALID_CLIENTS_STREETADDRESS)
-                    .jsonPath("$.province").isEqualTo(VALID_CLIENTS_PROVINCE)
-                    .jsonPath("$.postalCode").isEqualTo(VALID_CLIENTS_POSTALCODE)
-                    .jsonPath("$.phoneNumber").isEqualTo(VALID_CLIENTS_PHONENUMBER)
-                    .jsonPath("$.countryCode").isEqualTo(VALID_CLIENTS_COUNTRYCODE);
-
-
-
-        }
+        webTestClient.put()
+                .uri(BASE_URI_CLIENTS + "/" + VALID_CLIENTS_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(clientRequestModel)
+                .exchange()
+                .expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$.clientId").isEqualTo(VALID_CLIENTS_ID)
+                .jsonPath("$.firstName").isEqualTo(VALID_CLIENTS_FIRSTNAME)
+                .jsonPath("$.lastName").isEqualTo(VALID_CLIENTS_LASTNAME)
+                .jsonPath("$.emailAddress").isEqualTo(VALID_CLIENTS_EMAIL)
+                .jsonPath("$.city").isEqualTo(VALID_CLIENTS_CITY)
+                .jsonPath("$.country").isEqualTo(VALID_CLIENTS_COUNTRY)
+                .jsonPath("$.streetAddress").isEqualTo(VALID_CLIENTS_STREETADDRESS)
+                .jsonPath("$.province").isEqualTo(VALID_CLIENTS_PROVINCE)
+                .jsonPath("$.postalCode").isEqualTo(VALID_CLIENTS_POSTALCODE)
+                .jsonPath("$.phoneNumber").isEqualTo(VALID_CLIENTS_PHONENUMBER)
+                .jsonPath("$.countryCode").isEqualTo(VALID_CLIENTS_COUNTRYCODE);
 
 
-//Delete
-@Test
+    }
 
-public void whenDeletedExistingClient_thenDeleteClient() {
-    //arrange
+
+    //Delete
+    @Test
+
+    public void whenDeletedExistingClient_thenDeleteClient() {
+        //arrange
 //    ClientRequestModel clientRequestModel = newClientRequestModel(VALID_CLIENTS_FIRSTNAME, VALID_CLIENTS_LASTNAME, VALID_CLIENTS_EMAIL, VALID_CLIENTS_CITY,VALID_CLIENTS_COUNTRY,VALID_CLIENTS_STREETADDRESS,VALID_CLIENTS_PROVINCE,VALID_CLIENTS_POSTALCODE, VALID_CLIENTS_PHONENUMBER, VALID_CLIENTS_COUNTRYCODE);
 
 
-    //act
-    webTestClient.delete()
-            .uri(BASE_URI_CLIENTS+"/"+VALID_CLIENTS_ID)
-            .accept(MediaType.APPLICATION_JSON)
-            .exchange()
-            .expectStatus().isNoContent();
+        //act
+        webTestClient.delete()
+                .uri(BASE_URI_CLIENTS + "/" + VALID_CLIENTS_ID)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isNoContent();
 
-    Client found = clientRepository.findByClientIdentifier_ClientId(VALID_CLIENTS_ID);
+        Client found = clientRepository.findByClientIdentifier_ClientId(VALID_CLIENTS_ID);
 
-    assertNull(found);
-}
+        assertNull(found);
+    }
 
 
-    private ClientRequestModel newClientRequestModel(String firstName,String lastName,String emailAddress,String city,String country,String streetAddress,String province,String postalCode,String phoneNumber,String countryCode){
+    private ClientRequestModel newClientRequestModel(String firstName, String lastName, String emailAddress, String city, String country, String streetAddress, String province, String postalCode, String phoneNumber, String countryCode) {
 
         return ClientRequestModel.builder()
 
@@ -187,4 +185,162 @@ public void whenDeletedExistingClient_thenDeleteClient() {
 
     }
 
-}
+
+    private ClientRequestModel newPostalPhoneClientRequestModel(String postalCode, String phoneNumber) {
+
+        return ClientRequestModel.builder()
+
+                .postalCode(postalCode)
+
+                .phoneNumber(phoneNumber).build();
+
+    }
+
+
+    //Add Client--> phone regex and Postalcode exception
+    @Test
+    public void whenAddedClientWithPhoneValidValues_ThenReturnNewClient() {
+        String invalidPostalCode = "J5R-J5C";
+        String expectedPostalCode = "H4N 1G4";
+
+        String invalidPhoneNumber = "+1 514-2khbu13-4322";
+        String validPhoneNumber = "514-343-3223";
+
+        String expectedFName = "Denisa";
+        String expectedLName = "Hategan";
+        String expectedEmail = "denisa@gmail.com";
+        String expectedStreetAddress = "35 Flower Road";
+        String expectedCity = "Montreal";
+        String expectedProvince = "Quebec";
+        String expectedCountry = "Canada";
+        String expectedCountryCode = "QC";
+
+        ClientRequestModel clientRequestModel = newClientRequestModel(expectedFName, expectedLName, expectedEmail, expectedCity, expectedCountry, expectedStreetAddress, expectedProvince, expectedPostalCode, invalidPhoneNumber, expectedCountryCode);
+
+
+        webTestClient.post()
+                .uri(BASE_URI_CLIENTS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .bodyValue(clientRequestModel)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY)
+                .expectHeader()
+                .contentType(MediaType.APPLICATION_JSON)
+                .expectBody().jsonPath("$").isNotEmpty();
+
+
+    }
+
+    @Test
+    public void whenAddedClientWithPostalValidValues_ThenReturnNewClient() {
+
+        String invalidPostalCode = "J5R-J5C";
+        String expectedPostalCode = "H4N 1G4";
+
+        String invalidPhoneNumber = "+1 514-2khbu13-4322";
+        String validPhoneNumber = "514-343-3223";
+
+        String expectedFName = "Denisa";
+        String expectedLName = "Hategan";
+        String expectedEmail = "denisa@gmail.com";
+        String expectedStreetAddress = "35 Flower Road";
+        String expectedCity = "Montreal";
+        String expectedProvince = "Quebec";
+        String expectedCountry = "Canada";
+        String expectedCountryCode = "QC";
+
+        ClientRequestModel clientRequestModel = newClientRequestModel(expectedFName, expectedLName, expectedEmail, expectedCity, expectedCountry, expectedStreetAddress, expectedProvince, invalidPostalCode, validPhoneNumber, expectedCountryCode);
+
+
+        webTestClient.post()
+                .uri(BASE_URI_CLIENTS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .bodyValue(clientRequestModel)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY)
+                .expectHeader()
+                .contentType(MediaType.APPLICATION_JSON)
+                .expectBody().jsonPath("$").isNotEmpty();
+
+
+
+    }
+
+    //PUT ---> regex PostalCode and Phone
+
+    @Test
+    public void whenUpdatedClientWithPhoneValidValues_ThenReturnClient() {
+        String invalidPostalCode = "J5R-J5C";
+        String expectedPostalCode = "H4N 1G4";
+
+        String invalidPhoneNumber = "+1 514-2khbu13-4322";
+        String validPhoneNumber = "514-343-3223";
+
+        String expectedFName = "Denisa";
+        String expectedLName = "Hategan";
+        String expectedEmail = "denisa@gmail.com";
+        String expectedStreetAddress = "35 Flower Road";
+        String expectedCity = "Montreal";
+        String expectedProvince = "Quebec";
+        String expectedCountry = "Canada";
+        String expectedCountryCode = "QC";
+
+        ClientRequestModel clientRequestModel = newClientRequestModel(expectedFName, expectedLName, expectedEmail, expectedCity, expectedCountry, expectedStreetAddress, expectedProvince, expectedPostalCode, invalidPhoneNumber, expectedCountryCode);
+
+
+        webTestClient.put()
+                .uri(BASE_URI_CLIENTS + "/" + VALID_CLIENTS_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .bodyValue(clientRequestModel)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY)
+                .expectHeader()
+                .contentType(MediaType.APPLICATION_JSON)
+                .expectBody().jsonPath("$").isNotEmpty();
+
+
+    }
+
+    @Test
+    public void whenUpdatedClientWithPostalValidValues_ThenReturnClient() {
+        String invalidPostalCode = "J5R-J5C";
+        String expectedPostalCode = "H4N 1G4";
+
+        String invalidPhoneNumber = "+1 514-2khbu13-4322";
+        String validPhoneNumber = "514-343-3223";
+
+        String expectedFName = "Denisa";
+        String expectedLName = "Hategan";
+        String expectedEmail = "denisa@gmail.com";
+        String expectedStreetAddress = "35 Flower Road";
+        String expectedCity = "Montreal";
+        String expectedProvince = "Quebec";
+        String expectedCountry = "Canada";
+        String expectedCountryCode = "QC";
+
+        ClientRequestModel clientRequestModel = newClientRequestModel(expectedFName, expectedLName, expectedEmail, expectedCity, expectedCountry, expectedStreetAddress, expectedProvince, invalidPostalCode, validPhoneNumber, expectedCountryCode);
+
+
+        webTestClient.put()
+                .uri(BASE_URI_CLIENTS + "/" + VALID_CLIENTS_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .bodyValue(clientRequestModel)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.UNPROCESSABLE_ENTITY)
+                .expectHeader()
+                .contentType(MediaType.APPLICATION_JSON)
+                .expectBody().jsonPath("$").isNotEmpty();
+
+
+    }
+
+
+
+    }
+
+
+

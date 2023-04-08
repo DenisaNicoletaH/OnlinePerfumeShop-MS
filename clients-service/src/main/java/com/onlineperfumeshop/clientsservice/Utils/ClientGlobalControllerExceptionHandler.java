@@ -1,7 +1,8 @@
-package Utils;
+package com.onlineperfumeshop.clientsservice.Utils;
 
-import Utils.Exceptions.ClientInvalidInputException;
-import Utils.Exceptions.ConflictClientException;
+import com.onlineperfumeshop.clientsservice.Utils.Exceptions.ClientInvalidInputException;
+import com.onlineperfumeshop.clientsservice.Utils.Exceptions.ConflictClientException;
+import com.onlineperfumeshop.clientsservice.Utils.Exceptions.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,8 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
-import static org.springframework.http.HttpStatus.CONFLICT;
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
+import static org.springframework.http.HttpStatus.*;
 
 @Slf4j
 @RestControllerAdvice
@@ -19,7 +19,7 @@ public class ClientGlobalControllerExceptionHandler {
     //Duplication Exception
     @ResponseStatus(CONFLICT)
     @ExceptionHandler(ConflictClientException.class)
-    public HttpErrorInfo handleDuplicateClientException(WebRequest request, Exception ex) {
+    public HttpErrorInfo handleConflictClientException(WebRequest request, Exception ex) {
         return createHttpErrorInfo(CONFLICT, request, ex);
     }
 
@@ -28,6 +28,12 @@ public class ClientGlobalControllerExceptionHandler {
     public HttpErrorInfo handleClientInvalidInputException(WebRequest request, Exception ex) {
         return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
     }
+    @ResponseStatus(NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public HttpErrorInfo handleClientNotFoundException(WebRequest request, Exception ex) {
+        return createHttpErrorInfo(NOT_FOUND, request, ex);
+    }
+
 
 
 

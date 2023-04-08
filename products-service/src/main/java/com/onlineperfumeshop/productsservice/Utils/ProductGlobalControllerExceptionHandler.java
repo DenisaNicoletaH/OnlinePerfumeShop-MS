@@ -1,8 +1,7 @@
-package Utils;
+package com.onlineperfumeshop.productsservice.Utils;
 
-import Utils.Exceptions.ConflictDeliveryException;
-import Utils.Exceptions.DeliveryInvalidInputException;
-import Utils.Exceptions.DeliveryNotFoundException;
+import com.onlineperfumeshop.productsservice.Utils.Exceptions.ConflictProductException;
+import com.onlineperfumeshop.productsservice.Utils.Exceptions.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,28 +9,28 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
-import static org.springframework.http.HttpStatus.CONFLICT;
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
+import static org.springframework.http.HttpStatus.*;
 
 @Slf4j
 @RestController
-public class CheckoutGlobalControllerExceptionHandler {
+public class ProductGlobalControllerExceptionHandler {
 
     //Duplication Exception
     @ResponseStatus(CONFLICT)
-    @ExceptionHandler(ConflictDeliveryException.class)
-    public HttpErrorInfo handleConflictDeliveryException(WebRequest request, Exception ex) {
+    @ExceptionHandler(ConflictProductException.class)
+    public HttpErrorInfo handleDuplicateClientException(WebRequest request, Exception ex) {
         return createHttpErrorInfo(CONFLICT, request, ex);
     }
-    @ResponseStatus(UNPROCESSABLE_ENTITY)
-    @ExceptionHandler(DeliveryNotFoundException.class)
-    public HttpErrorInfo handleDeliveryNotFoundException(WebRequest request, Exception ex) {
-        return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
+
+    @ResponseStatus(NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public HttpErrorInfo handleNotFoundException(WebRequest request, Exception ex) {
+        return createHttpErrorInfo(NOT_FOUND, request, ex);
     }
 
     @ResponseStatus(UNPROCESSABLE_ENTITY)
-    @ExceptionHandler(DeliveryInvalidInputException.class)
-    public HttpErrorInfo handleDeliveryInvalidInputException(WebRequest request, Exception ex) {
+    @ExceptionHandler(ConflictProductException.class)
+    public HttpErrorInfo handleProductInvalidException(WebRequest request, Exception ex) {
         return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
     }
 

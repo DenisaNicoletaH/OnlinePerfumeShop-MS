@@ -1,9 +1,9 @@
 package com.onlineperfumeshop.productsservice.businesslayer.Inventory;
 
 
-import Utils.Exceptions.ConflictProductException;
-import Utils.Exceptions.NotFoundException;
-import Utils.Exceptions.ProductInvalidInputException;
+import com.onlineperfumeshop.productsservice.Utils.Exceptions.ConflictProductException;
+import com.onlineperfumeshop.productsservice.Utils.Exceptions.NotFoundException;
+import com.onlineperfumeshop.productsservice.Utils.Exceptions.ProductInvalidInputException;
 import com.onlineperfumeshop.productsservice.businesslayer.Discount.DiscountService;
 import com.onlineperfumeshop.productsservice.datalayer.Discount.DiscountIdentifier;
 import com.onlineperfumeshop.productsservice.datalayer.Inventory.Inventory;

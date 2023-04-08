@@ -1,8 +1,8 @@
 package com.onlineperfumeshop.clientsservice.businesslayer;
 
 
-import Utils.Exceptions.ConflictClientException;
-import Utils.Exceptions.NotFoundException;
+import com.onlineperfumeshop.clientsservice.Utils.Exceptions.ConflictClientException;
+import com.onlineperfumeshop.clientsservice.Utils.Exceptions.NotFoundException;
 import com.onlineperfumeshop.clientsservice.datalayer.Address;
 import com.onlineperfumeshop.clientsservice.datalayer.Client;
 import com.onlineperfumeshop.clientsservice.datalayer.ClientRepository;

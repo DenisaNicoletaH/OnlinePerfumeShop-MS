@@ -1,7 +1,7 @@
-package Utils;
+package com.onlineperfumeshop.checkoutservice.Utils;
 
-import Utils.Exceptions.NegativeMoneyAmountException;
-import Utils.Exceptions.NotFoundException;
+import com.onlineperfumeshop.checkoutservice.Utils.Exceptions.NegativeMoneyAmountException;
+import com.onlineperfumeshop.checkoutservice.Utils.Exceptions.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -1,4 +1,4 @@
-package Utils.Exceptions;
+package com.onlineperfumeshop.checkoutservice.Utils.Exceptions;
 
 public class NegativeMoneyAmountException extends RuntimeException{
     public NegativeMoneyAmountException() {

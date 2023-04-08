@@ -1,8 +1,8 @@
 package com.onlineperfumeshop.checkoutservice.businesslayer;
 
 
-import Utils.Exceptions.NegativeMoneyAmountException;
-import Utils.Exceptions.NotFoundException;
+import com.onlineperfumeshop.checkoutservice.Utils.Exceptions.NegativeMoneyAmountException;
+import com.onlineperfumeshop.checkoutservice.Utils.Exceptions.NotFoundException;
 import com.onlineperfumeshop.checkoutservice.datalayer.Checkout;
 import com.onlineperfumeshop.checkoutservice.datalayer.CheckoutRepository;
 import com.onlineperfumeshop.checkoutservice.datalayer.PaymentMethod;

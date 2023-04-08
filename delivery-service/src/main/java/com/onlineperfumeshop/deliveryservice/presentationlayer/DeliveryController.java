@@ -1,6 +1,6 @@
 package com.onlineperfumeshop.deliveryservice.presentationlayer;
 
-import Utils.Exceptions.DeliveryInvalidInputException;
+import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.DeliveryInvalidInputException;
 import com.onlineperfumeshop.deliveryservice.businesslayer.DeliveryService;
 import com.onlineperfumeshop.deliveryservice.datalayer.DeliveryIdentifier;
 import org.springframework.web.bind.annotation.*;

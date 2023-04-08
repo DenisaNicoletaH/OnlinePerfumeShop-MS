@@ -1,4 +1,4 @@
-package Utils;
+package com.onlineperfumeshop.checkoutservice.Utils;
 
 
 import lombok.Getter;

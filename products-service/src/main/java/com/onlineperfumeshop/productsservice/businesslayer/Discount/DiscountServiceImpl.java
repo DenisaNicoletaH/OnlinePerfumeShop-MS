@@ -1,7 +1,7 @@
 package com.onlineperfumeshop.productsservice.businesslayer.Discount;
 
 
-import Utils.Exceptions.NotFoundException;
+import com.onlineperfumeshop.productsservice.Utils.Exceptions.NotFoundException;
 import com.onlineperfumeshop.productsservice.datalayer.Discount.Discount;
 import com.onlineperfumeshop.productsservice.datalayer.Discount.DiscountRepository;
 import com.onlineperfumeshop.productsservice.datalayer.Discount.SalePrices;

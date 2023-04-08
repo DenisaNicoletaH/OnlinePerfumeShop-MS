@@ -1,4 +1,4 @@
-package Utils.Exceptions;
+package com.onlineperfumeshop.clientsservice.Utils.Exceptions;
 
 public class ConflictClientException extends RuntimeException {
 

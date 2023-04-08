@@ -1,7 +1,7 @@
 package com.onlineperfumeshop.deliveryservice.businesslayer;
 
-import Utils.Exceptions.ConflictDeliveryException;
-import Utils.Exceptions.DeliveryNotFoundException;
+import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.ConflictDeliveryException;
+import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.DeliveryNotFoundException;
 import com.onlineperfumeshop.deliveryservice.datalayer.*;
 import com.onlineperfumeshop.deliveryservice.datamapperlayer.DeliveryRequestMapper;
 import com.onlineperfumeshop.deliveryservice.datamapperlayer.DeliveryResponseMapper;

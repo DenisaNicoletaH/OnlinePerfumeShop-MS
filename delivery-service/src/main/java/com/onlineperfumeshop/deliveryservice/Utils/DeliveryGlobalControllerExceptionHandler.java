@@ -1,7 +1,7 @@
-package Utils;
+package com.onlineperfumeshop.deliveryservice.Utils;
 
-import Utils.Exceptions.ConflictDeliveryException;
-import Utils.Exceptions.DeliveryInvalidInputException;
+import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.ConflictDeliveryException;
+import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.DeliveryInvalidInputException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
