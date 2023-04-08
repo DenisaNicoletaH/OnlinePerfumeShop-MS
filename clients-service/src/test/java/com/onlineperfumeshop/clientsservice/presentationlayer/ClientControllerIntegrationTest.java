@@ -186,15 +186,6 @@ public class ClientControllerIntegrationTest {
     }
 
 
-    private ClientRequestModel newPostalPhoneClientRequestModel(String postalCode, String phoneNumber) {
-
-        return ClientRequestModel.builder()
-
-                .postalCode(postalCode)
-
-                .phoneNumber(phoneNumber).build();
-
-    }
 
 
     //Add Client--> phone regex and Postalcode exception
@@ -334,6 +325,45 @@ public class ClientControllerIntegrationTest {
                 .expectHeader()
                 .contentType(MediaType.APPLICATION_JSON)
                 .expectBody().jsonPath("$").isNotEmpty();
+
+
+    }
+
+    //ADD-->CONFLICT EXCEPTION ADD
+
+    @Test
+    public void whenAddedClientWithValidValues_FirstName_ThenReturnClient() {
+
+
+
+        String expectedPostalCode = "H4N 1G4";
+
+
+        String validPhoneNumber = "514-343-3223";
+
+        String invalidFName = "Luca";
+        String expectedLName = "Hategan";
+        String expectedEmail = "denisa@gmail.com";
+        String expectedStreetAddress = "35 Flower Road";
+        String expectedCity = "Montreal";
+        String expectedProvince = "Quebec";
+        String expectedCountry = "Canada";
+        String expectedCountryCode = "QC";
+
+        ClientRequestModel clientRequestModel = newClientRequestModel(invalidFName, expectedLName, expectedEmail, expectedCity, expectedCountry, expectedStreetAddress, expectedProvince, expectedPostalCode, validPhoneNumber, expectedCountryCode);
+
+        webTestClient.post()
+                .uri(BASE_URI_CLIENTS )
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .bodyValue(clientRequestModel)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.CONFLICT)
+                .expectHeader()
+                .contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$.firstName").isEqualTo(VALID_CLIENTS_FIRSTNAME);
+
 
 
     }
