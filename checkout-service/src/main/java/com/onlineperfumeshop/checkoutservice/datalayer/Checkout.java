@@ -10,8 +10,6 @@ import java.util.Date;
 @Entity
 @Table(name = "checkout")
 @Data
-
-
 public class Checkout {
 
     @Id

@@ -20,13 +20,6 @@ public class CheckoutGlobalControllerExceptionHandler {
     public HttpErrorInfo handleNotFoundException(WebRequest request, Exception ex) {
         return createHttpErrorInfo(NOT_FOUND, request, ex);
     }
-    //Duplication Exception
-
-    @ResponseStatus(UNPROCESSABLE_ENTITY)
-    @ExceptionHandler(NegativeMoneyAmountException.class)
-    public HttpErrorInfo handleCheckoutInvalidInputException(WebRequest request, Exception ex) {
-        return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
-    }
 
 
     @ResponseStatus(BAD_REQUEST)

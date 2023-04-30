@@ -1,0 +1,174 @@
+@startuml
+!define ENTITY(entityName) class entityName << Entity >>
+!define AGGREGATE_ROOT(aggregateRootName) class aggregateRootName << Aggregate Root >>
+!define VALUE_OBJECT(valueObjectName) class valueObjectName << Value Object >>
+
+rectangle " " as BoundedContextDelivery #line.dashed {
+    rectangle "Delivery Subdomain"{
+        AGGREGATE_ROOT(Delivery) {
+            warehouseLocation : String
+            shippingUpdate : Enum
+            customerName: String
+            arrivalTime: localDate
+
+        }
+
+
+
+        VALUE_OBJECT(DeliveryIdentifier) {
+            deliveryId: UUID
+        }
+
+        VALUE_OBJECT(Address) {
+            streetAddress: String
+            city: String
+            country: String
+            province: String
+            postalCode: String
+        }
+        VALUE_OBJECT(Phone) {
+                    phoneNumber: String
+                    countryCode: String
+                }
+
+
+
+
+
+        Delivery "1" o-- "1" Address
+        Delivery "1" o-- "1" Phone
+        Delivery --> DeliveryIdentifier
+
+
+
+    }
+}
+
+
+rectangle " " as BoundedContextClient #line.dashed {
+    rectangle "Client subdomain"{
+   AGGREGATE_ROOT(Client) {
+            firstName: String
+            lastName: String
+            email: String
+            }
+
+
+
+        VALUE_OBJECT(ClientIdentifier) {
+            clientId: UUID
+        }
+
+         VALUE_OBJECT(ClientAddress) {
+                    streetAddress: String
+                    city: String
+                    country: String
+                    province: String
+                    postalCode: String
+                }
+                 VALUE_OBJECT(ClientPhone) {
+                                    phoneNumber: String
+                                    countryCode: String
+                                }
+
+
+
+        ClientIdentifier "1" o-- "1" Delivery
+        Client "1" o-- "1" ClientAddress
+        Client --> ClientIdentifier
+        Client "1" o-- "1" ClientPhone
+    }
+}
+rectangle " " as BoundedContextCheckout #line.dashed {
+        rectangle "Checkout subdomain"{
+       AGGREGATE_ROOT(Checkout) {
+                amount: double
+                taxes: double
+                shipping: double
+                endOfSale: localDate
+
+            }
+
+
+
+            VALUE_OBJECT(CheckoutIdentifier) {
+                checkoutId: UUID
+            }
+             VALUE_OBJECT(PaymentMethod) {
+                            paymentType: String
+                            totalAmount: double
+                        }
+
+
+            ClientIdentifier "1" o-- "1" Checkout
+             Checkout --> CheckoutIdentifier
+            Checkout "1" o-- "1" PaymentMethod
+            CheckoutIdentifier "1" o-- "1" Delivery
+
+
+        }
+        }
+
+ rectangle " " as BoundedContextProduct #line.dashed {
+        rectangle "Product subdomain"{
+       AGGREGATE_ROOT(Product) {
+                status: Enum
+                name: String
+                price: double
+                brand: String
+            }
+
+
+
+            VALUE_OBJECT(ProductIdentifier) {
+                productId: UUID
+            }
+
+            VALUE_OBJECT(Perfume) {
+                        scentType: String
+                        dateProduced: localDate
+                    }
+
+
+           ENTITY(Inventory){
+                lastInventoryUpdate: localDate
+
+           }
+           VALUE_OBJECT(InventoryIdentifier) {
+                           inventoryId: UUID
+                       }
+
+           ENTITY(Discount){
+                salePercent: Integer
+                salesStatus: Enum
+
+           }
+           VALUE_OBJECT(DiscountIdentifier) {
+                                      discountId: UUID
+                                  }
+
+           VALUE_OBJECT(SalesPrices){
+            newPrices: double
+           }
+
+
+
+        Discount --> DiscountIdentifier
+        Discount "1" o-- "1" SalesPrices
+        DiscountIdentifier "1" o-- "1" Product
+
+        Inventory --> InventoryIdentifier
+
+
+        InventoryIdentifier --> Product
+
+
+        Product "1" o-- "1" Perfume
+        ProductIdentifier "1" o-- "1" Checkout
+        Product --> ProductIdentifier
+
+    }
+        }
+
+
+@enduml

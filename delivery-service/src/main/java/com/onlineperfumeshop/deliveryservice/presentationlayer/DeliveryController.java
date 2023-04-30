@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 public class DeliveryController {
 
     private final String deliveryPostalCode = "^(?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9]$";
-    private final String deliveryPhoneNumber = "^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$\n";
+    private final String deliveryPhoneNumber = "^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$";
 
     DeliveryService deliveryService;
 
@@ -53,7 +53,7 @@ public class DeliveryController {
         if (!Pattern.compile(deliveryPostalCode).matcher(deliveryRequestModel.getPostalCode()).matches()) {
             throw new DeliveryInvalidInputException("Invalid postal code" + deliveryRequestModel.getPostalCode());
         } else if (!Pattern.compile(deliveryPhoneNumber).matcher(deliveryRequestModel.getPhoneNumber()).matches()) {
-            throw new DeliveryInvalidInputException("The phone number is invalid" + deliveryRequestModel.getPhoneNumber());
+            throw new DeliveryInvalidInputException("The phone number is invalid " + deliveryRequestModel.getPhoneNumber());
         }else {
             return deliveryService.updateDelivery(deliveryRequestModel, deliveryId);
         }

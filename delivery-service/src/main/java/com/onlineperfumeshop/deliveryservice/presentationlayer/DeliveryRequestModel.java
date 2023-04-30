@@ -12,7 +12,6 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class DeliveryRequestModel {
-    private String deliveryId;
     private String checkoutId;
     private String warehouseLocation;
 
@@ -30,6 +29,6 @@ public class DeliveryRequestModel {
     private String phoneNumber;
 
 
-    private LocalDate arrivalTime;
+    private String arrivalTime;
 
 }

@@ -3,7 +3,6 @@ package com.onlineperfumeshop.productsservice.datalayer.Product;
 
 import com.onlineperfumeshop.productsservice.datalayer.Discount.DiscountIdentifier;
 import com.onlineperfumeshop.productsservice.datalayer.Inventory.InventoryIdentifier;
-import com.onlineperfumeshop.productsservice.datalayer.Inventory.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

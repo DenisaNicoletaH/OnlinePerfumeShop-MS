@@ -1,11 +1,13 @@
 package com.onlineperfumeshop.checkoutservice.presentationlayer;
 
 import com.onlineperfumeshop.checkoutservice.businesslayer.CheckoutService;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Controller
 @RequestMapping("api/v1/checkouts")
 public class CheckoutController {
 

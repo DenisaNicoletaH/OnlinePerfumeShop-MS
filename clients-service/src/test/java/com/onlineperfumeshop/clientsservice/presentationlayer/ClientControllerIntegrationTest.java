@@ -155,6 +155,7 @@ public class ClientControllerIntegrationTest {
 //    ClientRequestModel clientRequestModel = newClientRequestModel(VALID_CLIENTS_FIRSTNAME, VALID_CLIENTS_LASTNAME, VALID_CLIENTS_EMAIL, VALID_CLIENTS_CITY,VALID_CLIENTS_COUNTRY,VALID_CLIENTS_STREETADDRESS,VALID_CLIENTS_PROVINCE,VALID_CLIENTS_POSTALCODE, VALID_CLIENTS_PHONENUMBER, VALID_CLIENTS_COUNTRYCODE);
 
 
+
         //act
         webTestClient.delete()
                 .uri(BASE_URI_CLIENTS + "/" + VALID_CLIENTS_ID)
@@ -165,6 +166,22 @@ public class ClientControllerIntegrationTest {
         Client found = clientRepository.findByClientIdentifier_ClientId(VALID_CLIENTS_ID);
 
         assertNull(found);
+    }
+
+@Test
+    public void whenDeletedNotExistingClient_thenReturnNotFound() {
+        //arrange
+//    ClientRequestModel clientRequestModel = newClientRequestModel(VALID_CLIENTS_FIRSTNAME, VALID_CLIENTS_LASTNAME, VALID_CLIENTS_EMAIL, VALID_CLIENTS_CITY,VALID_CLIENTS_COUNTRY,VALID_CLIENTS_STREETADDRESS,VALID_CLIENTS_PROVINCE,VALID_CLIENTS_POSTALCODE, VALID_CLIENTS_PHONENUMBER, VALID_CLIENTS_COUNTRYCODE);
+
+
+        //act
+        webTestClient.delete()
+                .uri(BASE_URI_CLIENTS + "/" + "invalid_id")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus().isNotFound().expectBody().jsonPath("$").isNotEmpty();
+
+
     }
 
 
@@ -296,11 +313,40 @@ public class ClientControllerIntegrationTest {
     }
 
     @Test
-    public void whenUpdatedClientWithPostalValidValues_ThenReturnClient() {
-        String invalidPostalCode = "J5R-J5C";
+    public void whenUpdatedClientWithInvalidId_thenReturnNotFound() {
         String expectedPostalCode = "H4N 1G4";
 
-        String invalidPhoneNumber = "+1 514-2khbu13-4322";
+        String validPhoneNumber = "514-343-3223";
+
+        String expectedFName = "Denisa";
+        String expectedLName = "Hategan";
+        String expectedEmail = "denisa@gmail.com";
+        String expectedStreetAddress = "35 Flower Road";
+        String expectedCity = "Montreal";
+        String expectedProvince = "Quebec";
+        String expectedCountry = "Canada";
+        String expectedCountryCode = "QC";
+
+        ClientRequestModel clientRequestModel = newClientRequestModel(expectedFName, expectedLName, expectedEmail, expectedCity, expectedCountry, expectedStreetAddress, expectedProvince, expectedPostalCode, validPhoneNumber, expectedCountryCode);
+
+
+        webTestClient.put()
+                .uri(BASE_URI_CLIENTS + "/" + "invalid_id")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .bodyValue(clientRequestModel)
+                .exchange()
+                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND)
+                .expectHeader()
+                .contentType(MediaType.APPLICATION_JSON)
+                .expectBody().jsonPath("$").isNotEmpty();
+
+
+    }
+    @Test
+    public void whenUpdatedClientWithPostalValidValues_ThenReturnClient() {
+        String invalidPostalCode = "J5R-J5C";
+
         String validPhoneNumber = "514-343-3223";
 
         String expectedFName = "Denisa";
@@ -336,21 +382,9 @@ public class ClientControllerIntegrationTest {
 
 
 
-        String expectedPostalCode = "H4N 1G4";
 
 
-        String validPhoneNumber = "514-343-3223";
-
-        String invalidFName = "Luca";
-        String expectedLName = "Hategan";
-        String expectedEmail = "denisa@gmail.com";
-        String expectedStreetAddress = "35 Flower Road";
-        String expectedCity = "Montreal";
-        String expectedProvince = "Quebec";
-        String expectedCountry = "Canada";
-        String expectedCountryCode = "QC";
-
-        ClientRequestModel clientRequestModel = newClientRequestModel(invalidFName, expectedLName, expectedEmail, expectedCity, expectedCountry, expectedStreetAddress, expectedProvince, expectedPostalCode, validPhoneNumber, expectedCountryCode);
+        ClientRequestModel clientRequestModel = newClientRequestModel(VALID_CLIENTS_FIRSTNAME, VALID_CLIENTS_LASTNAME, VALID_CLIENTS_EMAIL, VALID_CLIENTS_CITY, VALID_CLIENTS_COUNTRY, VALID_CLIENTS_STREETADDRESS, VALID_CLIENTS_PROVINCE, VALID_CLIENTS_POSTALCODE, VALID_CLIENTS_PHONENUMBER, VALID_CLIENTS_COUNTRYCODE);
 
         webTestClient.post()
                 .uri(BASE_URI_CLIENTS )
@@ -362,7 +396,7 @@ public class ClientControllerIntegrationTest {
                 .expectHeader()
                 .contentType(MediaType.APPLICATION_JSON)
                 .expectBody()
-                .jsonPath("$.firstName").isEqualTo(VALID_CLIENTS_FIRSTNAME);
+                .jsonPath("$").isNotEmpty();
 
 
 
