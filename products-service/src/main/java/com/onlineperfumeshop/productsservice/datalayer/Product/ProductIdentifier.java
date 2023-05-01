@@ -14,9 +14,11 @@ public class ProductIdentifier {
         this.productId = UUID.randomUUID().toString();
     }
 
+    /*
     public ProductIdentifier(String productId) {
         this.productId = productId;
     }
+     */
 
     public String getProductId() {return this.productId;}
 

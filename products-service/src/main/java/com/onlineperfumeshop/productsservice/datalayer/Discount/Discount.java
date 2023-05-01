@@ -30,7 +30,7 @@ public class Discount {
         this.discountIdentifier=new DiscountIdentifier();
 
     }
-    public Discount(Integer salePercent,Double newPrices,SaleStatus saleStatus,SalePrices salePrices) {
+    public Discount(Integer salePercent,Double newPrices,SaleStatus saleStatus) {
         this.salePercent = salePercent;
         this.saleStatus=saleStatus;
         this.salePrices=new SalePrices(newPrices);

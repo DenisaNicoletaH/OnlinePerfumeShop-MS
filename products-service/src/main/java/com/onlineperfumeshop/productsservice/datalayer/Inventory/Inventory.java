@@ -3,6 +3,7 @@ package com.onlineperfumeshop.productsservice.datalayer.Inventory;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -15,7 +16,7 @@ public class Inventory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Date lastInventoryUpdate;
+    private LocalDate lastInventoryUpdate;
 
 
     @Embedded
@@ -25,7 +26,7 @@ public class Inventory {
         this.inventoryIdentifier = new InventoryIdentifier();
     }
 
-    public Inventory(Date lastInventoryUpdate) {
+    public Inventory(LocalDate lastInventoryUpdate) {
         this.inventoryIdentifier = new InventoryIdentifier();
         this.lastInventoryUpdate = lastInventoryUpdate;
     }

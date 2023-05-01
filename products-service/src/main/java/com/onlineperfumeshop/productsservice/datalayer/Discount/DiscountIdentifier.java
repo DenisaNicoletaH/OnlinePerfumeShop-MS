@@ -13,13 +13,16 @@ public class DiscountIdentifier {
    public DiscountIdentifier() {
         this.discountId = UUID.randomUUID().toString();
     }
+
    public DiscountIdentifier(String discountId) {
         this.discountId = discountId;
     }
 
 
+
+
     public String getDiscountId() {
-        return discountId;
+        return this.discountId;
     }
 }
 

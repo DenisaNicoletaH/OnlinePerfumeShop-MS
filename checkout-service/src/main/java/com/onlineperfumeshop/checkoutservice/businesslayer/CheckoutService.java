@@ -13,7 +13,7 @@ public interface CheckoutService {
 
     List<CheckoutResponseModel> getCheckouts();
 
-    void deleteClient(String checkoutId);
+    void deleteCheckout(String checkoutId);
 
     CheckoutResponseModel updateCheckout(CheckoutRequestModel checkoutRequestModel, String checkoutId);
 }

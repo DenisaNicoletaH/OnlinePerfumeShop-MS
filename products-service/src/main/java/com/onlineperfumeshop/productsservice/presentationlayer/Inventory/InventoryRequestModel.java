@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Value
@@ -12,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class InventoryRequestModel {
 
-   private Date lastInventoryUpdated;
+   private LocalDate lastInventoryUpdated;
 
 
 }

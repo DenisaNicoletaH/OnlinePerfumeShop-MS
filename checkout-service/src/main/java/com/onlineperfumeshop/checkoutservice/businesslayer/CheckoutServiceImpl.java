@@ -65,7 +65,7 @@ public class CheckoutServiceImpl implements CheckoutService {
     }
 
     @Override
-    public void deleteClient(String checkoutId) {
+    public void deleteCheckout(String checkoutId) {
         Checkout existingCheckout = checkoutRepository.findByCheckoutIdentifier_CheckoutId(checkoutId);
 
         if (existingCheckout == null) {

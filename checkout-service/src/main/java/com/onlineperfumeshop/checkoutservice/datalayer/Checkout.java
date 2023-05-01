@@ -16,6 +16,7 @@ public class Checkout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
 
+
     @Embedded
     private CheckoutIdentifier checkoutIdentifier;
     private Double amount;

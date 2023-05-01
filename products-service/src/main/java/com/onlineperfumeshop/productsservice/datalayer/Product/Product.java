@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -55,8 +56,6 @@ public class Product {
         this.discountIdentifier=discountIdentifier;
         this.perfume = new Perfume(scentType,dateProduced);
     }
-
-
 
 
     public @NotNull String getName() {

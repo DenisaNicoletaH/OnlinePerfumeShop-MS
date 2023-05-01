@@ -1,6 +1,8 @@
 package com.onlineperfumeshop.checkoutservice.presentationlayer;
 
 import com.onlineperfumeshop.checkoutservice.businesslayer.CheckoutService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +21,8 @@ public class CheckoutController {
 
 
     @PostMapping()
-    public CheckoutResponseModel addCheckout(@RequestBody CheckoutRequestModel checkoutRequestModel){
-        return checkoutService.addCheckout(checkoutRequestModel);
+    public ResponseEntity<CheckoutResponseModel> addCheckout(@RequestBody CheckoutRequestModel checkoutRequestModel){
+        return ResponseEntity.status(HttpStatus.CREATED).body(checkoutService.addCheckout(checkoutRequestModel));
 
 
     }
@@ -45,7 +47,7 @@ public class CheckoutController {
 
     @DeleteMapping("/{checkoutId}")
     public void deleteCheckout(@PathVariable String checkoutId){
-        checkoutService.deleteClient(checkoutId);
+        checkoutService.deleteCheckout(checkoutId);
     }
 
 

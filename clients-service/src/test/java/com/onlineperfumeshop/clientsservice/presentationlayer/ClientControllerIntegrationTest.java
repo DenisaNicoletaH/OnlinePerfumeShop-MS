@@ -31,18 +31,18 @@ public class ClientControllerIntegrationTest {
     private final String BASE_URI_CLIENTS = "/api/v1/clients";
     private final String VALID_CLIENTS_ID = "c3540a89-cb47-4c96-888e-ff96708db4d8";
 
-    private final String VALID_CLIENTS_EMAIL = "aucceli0@dot.gov"; //<--- and here
+    private final String VALID_CLIENTS_EMAIL = "aucceli0@dot.gov";
 
-    private final String VALID_CLIENTS_FIRSTNAME = "Alick"; //<--- and here
-    private final String VALID_CLIENTS_LASTNAME = "Ucceli"; //<--- and here
+    private final String VALID_CLIENTS_FIRSTNAME = "Alick";
+    private final String VALID_CLIENTS_LASTNAME = "Ucceli";
 
-    private final String VALID_CLIENTS_COUNTRY = "Canada"; //<--- and here
-    private final String VALID_CLIENTS_PROVINCE = "British-Colombia"; //<--- and here
-    private final String VALID_CLIENTS_STREETADDRESS = "73 Shoshone Road"; //<--- and here
-    private final String VALID_CLIENTS_POSTALCODE = "P0M 2T6"; //<--- and here
-    private final String VALID_CLIENTS_PHONENUMBER = "994-836-0622"; //<--- and here
-    private final String VALID_CLIENTS_COUNTRYCODE = "BC"; //<--- and here
-    private final String VALID_CLIENTS_CITY = "Vancouver"; //<--- and here
+    private final String VALID_CLIENTS_COUNTRY = "Canada";
+    private final String VALID_CLIENTS_PROVINCE = "British-Colombia";
+    private final String VALID_CLIENTS_STREETADDRESS = "73 Shoshone Road";
+    private final String VALID_CLIENTS_POSTALCODE = "P0M 2T6";
+    private final String VALID_CLIENTS_PHONENUMBER = "994-836-0622";
+    private final String VALID_CLIENTS_COUNTRYCODE = "BC";
+    private final String VALID_CLIENTS_CITY = "Vancouver";
 
 
     //gets all clients--> based on sql

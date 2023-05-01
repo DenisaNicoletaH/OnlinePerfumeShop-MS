@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Value
@@ -13,5 +14,5 @@ import java.util.Date;
 public class InventoryResponseModel {
 
     private String inventoryId;
-    private Date lastInventoryUpdate;
+    private LocalDate lastInventoryUpdate;
 }
