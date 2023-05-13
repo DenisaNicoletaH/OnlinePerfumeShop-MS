@@ -14,6 +14,7 @@ public class DiscountIdentifier {
         this.discountId = UUID.randomUUID().toString();
     }
 
+
    public DiscountIdentifier(String discountId) {
         this.discountId = discountId;
     }

@@ -4,6 +4,7 @@ package com.onlineperfumeshop.productsservice.datalayer.Product;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,14 +14,14 @@ public class Perfume {
 
     private String scentType;
 
-    private Date dateProduced;
+    private LocalDate dateProduced;
 
 
     @SuppressWarnings("unused")
     public Perfume() {
     }
 
-    public Perfume(@NotNull String scentType, @NotNull Date dateProduced) {
+    public Perfume(@NotNull String scentType, @NotNull LocalDate dateProduced) {
 
         Objects.requireNonNull(this.scentType = scentType);
         Objects.requireNonNull(this.dateProduced = dateProduced);
@@ -28,7 +29,7 @@ public class Perfume {
     }
         public @NotNull String getScentType(){return scentType;}
 
-        public @NotNull Date getDateProduced() {return dateProduced;}
+        public @NotNull LocalDate getDateProduced() {return dateProduced;}
 
 
 }

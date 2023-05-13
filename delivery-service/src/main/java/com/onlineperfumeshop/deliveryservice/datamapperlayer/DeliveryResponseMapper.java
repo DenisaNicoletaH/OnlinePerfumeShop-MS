@@ -20,6 +20,8 @@ public interface DeliveryResponseMapper {
     @Mapping(expression = "java(delivery.getAddress().getPostalCode())",  target = "postalCode")
     @Mapping(expression = "java(delivery.getClientIdentifier().getClientId())",  target = "clientId")
     @Mapping(expression = "java(delivery.getArrivalTime())", target = "arrivalTime" )
+    @Mapping(expression = "java(delivery.getPhone().getCountryCode())", target = "countryCode" )
+
     DeliveryResponseModel entityToResponseModel(Delivery delivery);
 
     List<DeliveryResponseModel> entitiesToResponseModel(List<Delivery> deliveries);

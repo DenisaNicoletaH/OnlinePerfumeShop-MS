@@ -37,5 +37,7 @@ public class DeliveryResponseModel {
 
     private LocalDate arrivalTime;
 
+    private String countryCode;
+
 
 }

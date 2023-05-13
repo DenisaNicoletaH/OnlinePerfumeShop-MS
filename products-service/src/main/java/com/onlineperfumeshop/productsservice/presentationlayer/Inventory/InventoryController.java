@@ -3,8 +3,11 @@ package com.onlineperfumeshop.productsservice.presentationlayer.Inventory;
 import com.onlineperfumeshop.productsservice.businesslayer.Inventory.InventoryServiceImpl;
 import com.onlineperfumeshop.productsservice.presentationlayer.Product.ProductRequestModel;
 import com.onlineperfumeshop.productsservice.presentationlayer.Product.ProductResponseModel;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpResponse;
 import java.util.List;
 
 @RestController
@@ -18,41 +21,41 @@ public class InventoryController {
     }
 
     @GetMapping()
-    public List<InventoryResponseModel> getInventories() {
-        return inventoryService.getInventories();
+    public ResponseEntity<List<InventoryResponseModel>> getInventories() {
+        return ResponseEntity.status(HttpStatus.OK).body(inventoryService.getInventories());
     }
 
     @PostMapping()
-    public InventoryResponseModel addInventory(@RequestBody InventoryRequestModel inventoryRequestModel) {
-        return inventoryService.addInventory(inventoryRequestModel);
+    ResponseEntity <InventoryResponseModel> addInventory(@RequestBody InventoryRequestModel inventoryRequestModel) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(inventoryService.addInventory(inventoryRequestModel));
     }
 
     @GetMapping("/{inventoryId}")
-    InventoryResponseModel getInventoryByInventoryIdentifier(@PathVariable String inventoryId){
-        return inventoryService.getInventoryByInventoryIdentifier(inventoryId);
+    ResponseEntity<InventoryResponseModel> getInventoryByInventoryIdentifier(@PathVariable String inventoryId){
+        return ResponseEntity.status(HttpStatus.OK).body(inventoryService.getInventoryByInventoryIdentifier(inventoryId));
     }
 
 
     @PutMapping("/{inventoryId}/products")
-    public InventoryResponseModel updateInventory(@RequestBody InventoryRequestModel inventoryRequestModel, @RequestParam String productId) {
-        return inventoryService.updateInventory(inventoryRequestModel, productId);
+     ResponseEntity<InventoryResponseModel> updateInventory(@RequestBody InventoryRequestModel inventoryRequestModel, @PathVariable String productId) {
+        return ResponseEntity.status(HttpStatus.OK).body(inventoryService.updateInventory(inventoryRequestModel, productId));
     }
 
-
     @DeleteMapping("/{inventoryId}")
-    public void deleteInventory(@PathVariable String inventoryId) {
+    public ResponseEntity<Void> deleteInventory(@PathVariable String inventoryId) {
         inventoryService.deleteInventory(inventoryId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 @PostMapping("/{inventoryId}/products")
-ProductResponseModel addProductToInventory(@RequestBody ProductRequestModel productRequestModel,
+ResponseEntity<ProductResponseModel> addProductToInventory(@RequestBody ProductRequestModel productRequestModel,
                                            @PathVariable String inventoryId) {
-        return inventoryService.addProductToInventory(productRequestModel, inventoryId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(inventoryService.addProductToInventory(productRequestModel, inventoryId));
     }
 
     @GetMapping("/{inventoryId}/products")
-   List<ProductResponseModel> getProductsByInventoryIdentifier_InventoryId(@PathVariable String inventoryId){
-        return inventoryService.getProductsByInventoryIdentifier_InventoryId(inventoryId);
+   ResponseEntity<List<ProductResponseModel>> getProductsByInventoryIdentifier_InventoryId(@PathVariable String inventoryId){
+        return ResponseEntity.status(HttpStatus.OK).body(inventoryService.getProductsByInventoryIdentifier_InventoryId(inventoryId));
     }
 
 

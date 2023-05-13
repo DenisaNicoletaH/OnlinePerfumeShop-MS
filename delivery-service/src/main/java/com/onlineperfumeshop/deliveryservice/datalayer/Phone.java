@@ -11,7 +11,7 @@ public class Phone {
 
 
     public String phoneNumber;
-    private String countryCode;
+    public String countryCode;
 
 public Phone(@NotNull String phoneNumber, @NotNull String countryCode){
     Objects.requireNonNull(this.phoneNumber = phoneNumber);

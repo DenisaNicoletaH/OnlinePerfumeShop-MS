@@ -9,7 +9,7 @@ public class InventoryIdentifier {
 
     private String inventoryId;
 
-    InventoryIdentifier() {
+    public InventoryIdentifier() {
         this.inventoryId = UUID.randomUUID().toString();
     }
 

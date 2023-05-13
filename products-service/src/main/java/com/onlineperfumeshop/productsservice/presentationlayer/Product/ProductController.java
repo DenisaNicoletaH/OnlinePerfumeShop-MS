@@ -54,7 +54,7 @@ public class ProductController {
 
 
         @PutMapping("/{productId}")
-        public ProductResponseModel updateProduct(@RequestBody ProductRequestModel productRequestModel, @RequestParam String productId){
+        public ProductResponseModel updateProduct(@RequestBody ProductRequestModel productRequestModel, @PathVariable String productId){
                 return inventoryService.updateProduct(productRequestModel, productId);
         }
 

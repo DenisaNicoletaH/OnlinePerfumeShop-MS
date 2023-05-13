@@ -17,6 +17,9 @@ public interface DeliveryRequestMapper {
     @Mapping(expression = "java(deliveryRequestModel.getCountry())",  target = "address.country")
     @Mapping(expression = "java(deliveryRequestModel.getProvince())",  target = "address.province")
     @Mapping(expression = "java(deliveryRequestModel.getPostalCode())",  target = "address.postalCode")
+    @Mapping(expression = "java(deliveryRequestModel.getCountryCode())",  target = "phone.countryCode")
+
+
     Delivery entityToRequestModel(DeliveryRequestModel deliveryRequestModel);
 
 }

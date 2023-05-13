@@ -1,6 +1,7 @@
 package com.onlineperfumeshop.productsservice.datalayer;
 
 
+import com.onlineperfumeshop.productsservice.datalayer.Discount.DiscountIdentifier;
 import com.onlineperfumeshop.productsservice.datalayer.Inventory.Inventory;
 import com.onlineperfumeshop.productsservice.datalayer.Inventory.InventoryIdentifier;
 import com.onlineperfumeshop.productsservice.datalayer.Product.Perfume;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
@@ -28,14 +30,18 @@ public class ProductPersistenceTest {
     @BeforeEach
     public void setup(){
         productRepository.deleteAll();
-        String expectedName="Sugary Lemon";
-        String expectedBrand="Replica";
-        Double expectedPrice=350.00;
-        Status expectedStatus=Status.IN_STOCK;
-        String expectedScentType="Floral";
-        LocalDate expectedDateProduced= LocalDate.parse("2023-04-12");
+        String name="Sugary Lemon";
+        String brand="Replica";
+        Double price=350.00;
+        InventoryIdentifier inventoryIdentifier=new InventoryIdentifier();
+        DiscountIdentifier discountIdentifier=new DiscountIdentifier();
+        String inventoryId="d846a5a7-2e1c-4c79-809c-4f3f471e826d";
+        String discountId="672cf826-4d9d-41cd-a6b6-fa1815783b5f";
+        Status status=Status.IN_STOCK;
+        String scentType="Floral";
+        LocalDate dateProduced= LocalDate.parse("2023-04-12");
 
-        presavedProduct=productRepository.save(new Product(expectedName,expectedBrand,expectedPrice,expectedStatus,expectedScentType,expectedDateProduced));
+        presavedProduct=productRepository.save(new Product(name,price,brand,dateProduced,scentType,status,new InventoryIdentifier(inventoryId),new DiscountIdentifier(discountId)));
 
     }
 
@@ -46,7 +52,7 @@ public class ProductPersistenceTest {
         //act
         Product found=productRepository.findByProductIdentifier_ProductId(presavedProduct.getProductIdentifier().getProductId());
 
-    //assert
+        //assert
         assertNotNull(found);
         assertThat(presavedProduct,samePropertyValuesAs(found));
 
@@ -55,7 +61,7 @@ public class ProductPersistenceTest {
 
     //if id is invalid return null
     @Test
-    public void findByProductOIdentifier_ProductId_ShouldReturnNull(){
+    public void findByProductIdentifier_ProductId_ShouldReturnNull(){
 
         //act
         Product found=productRepository.findByProductIdentifier_ProductId(presavedProduct.getProductIdentifier().getProductId() +1);
@@ -77,7 +83,7 @@ public class ProductPersistenceTest {
         LocalDate expectedDateProduced= LocalDate.parse("2013-05-10");
 
 
-        Product savedProduct=productRepository.save(new Product(expectedName,expectedBrand,expectedPrice,expectedStatus,expectedScentType,expectedDateProduced));
+        Product savedProduct=productRepository.save(new Product(expectedName,expectedPrice,expectedBrand,expectedDateProduced,expectedScentType,expectedStatus, new InventoryIdentifier("d846a5a7-2e1c-4c79-809c-4f3f471e826d"), new DiscountIdentifier("672cf826-4d9d-41cd-a6b6-fa1815783b5f")));
 
         //assert
         assertNotNull(savedProduct);
@@ -117,9 +123,6 @@ public class ProductPersistenceTest {
         assertThat(savedProduct,samePropertyValuesAs(presavedProduct));
 
     }
-
-
-
 
 
 }

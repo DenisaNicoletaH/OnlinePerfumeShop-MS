@@ -1,6 +1,8 @@
 package com.onlineperfumeshop.productsservice.presentationlayer.Discount;
 
 import com.onlineperfumeshop.productsservice.businesslayer.Discount.DiscountService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,19 +24,20 @@ public class DiscountController {
 
 
     @PostMapping()
-    public DiscountResponseModel addDiscount(@RequestBody DiscountRequestModel discountRequestModel) {
-        return discountService.addDiscount(discountRequestModel);
+    ResponseEntity <DiscountResponseModel> addDiscount(@RequestBody DiscountRequestModel discountRequestModel) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(discountService.addDiscount(discountRequestModel));
     }
 
     @GetMapping("/{discountId}")
-    public DiscountResponseModel getDiscountId(@PathVariable String discountId) {
-        return discountService.getDiscountByIdentifier(discountId);
+    ResponseEntity <DiscountResponseModel> getDiscountId(@PathVariable String discountId) {
+        return ResponseEntity.status(HttpStatus.OK).body(discountService.getDiscountByIdentifier(discountId));
     }
 
 
     @DeleteMapping("/{discountId}")
-    public void deleteDiscount(@PathVariable String discountId){
+    public ResponseEntity <Void> deleteDiscount(@PathVariable String discountId){
         discountService.deleteDiscount(discountId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 

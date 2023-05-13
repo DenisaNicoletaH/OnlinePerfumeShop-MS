@@ -3,6 +3,8 @@ package com.onlineperfumeshop.deliveryservice.presentationlayer;
 import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.DeliveryInvalidInputException;
 import com.onlineperfumeshop.deliveryservice.businesslayer.DeliveryService;
 import com.onlineperfumeshop.deliveryservice.datalayer.DeliveryIdentifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,13 +25,13 @@ public class DeliveryController {
 
 
     @PostMapping()
-    public DeliveryResponseModel addDelivery(@RequestBody DeliveryRequestModel deliveryRequestModel, @RequestBody DeliveryIdentifier deliveryIdentifier){
+    public ResponseEntity<DeliveryResponseModel> addDelivery(@RequestBody DeliveryRequestModel deliveryRequestModel){
         if (!Pattern.compile(deliveryPostalCode).matcher(deliveryRequestModel.getPostalCode()).matches()) {
             throw new DeliveryInvalidInputException("Invalid postal code" + deliveryRequestModel.getPostalCode());
         } else if (!Pattern.compile(deliveryPhoneNumber).matcher(deliveryRequestModel.getPhoneNumber()).matches()) {
             throw new DeliveryInvalidInputException("The phone number is invalid" + deliveryRequestModel.getPhoneNumber());
         }else {
-            return deliveryService.addDelivery(deliveryRequestModel,deliveryIdentifier);
+            return ResponseEntity.status(HttpStatus.CREATED).body(deliveryService.addDelivery(deliveryRequestModel));
         }
     }
 

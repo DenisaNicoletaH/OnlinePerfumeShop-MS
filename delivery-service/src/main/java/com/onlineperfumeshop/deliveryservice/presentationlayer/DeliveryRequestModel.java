@@ -30,5 +30,7 @@ public class DeliveryRequestModel {
 
 
     private String arrivalTime;
+    private String countryCode;
+
 
 }

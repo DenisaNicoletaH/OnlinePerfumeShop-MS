@@ -2,6 +2,7 @@ package com.onlineperfumeshop.productsservice.datalayer;
 
 
 import com.onlineperfumeshop.productsservice.datalayer.Discount.Discount;
+import com.onlineperfumeshop.productsservice.datalayer.Discount.DiscountIdentifier;
 import com.onlineperfumeshop.productsservice.datalayer.Discount.DiscountRepository;
 import com.onlineperfumeshop.productsservice.datalayer.Discount.SaleStatus;
 import org.junit.jupiter.api.Test;
@@ -24,12 +25,11 @@ public class DiscountPersistenceTest {
 
     @BeforeEach
     public void setup(){
-
         discountRepository.deleteAll();
         Integer expectedSalePercent=50;
         Double expectedNewPrices=100.00;
-        SaleStatus expectedSaleStatus = SALE;
-   presavedDiscount=discountRepository.save(new Discount(expectedSalePercent,expectedNewPrices, expectedSaleStatus));
+        SaleStatus saleStatus = SALE;
+  presavedDiscount=discountRepository.save(new Discount(expectedSalePercent,expectedNewPrices, saleStatus));
 
     }
 
@@ -39,6 +39,8 @@ public class DiscountPersistenceTest {
 
         //act
         Discount found =discountRepository.findByDiscountIdentifier_DiscountId(presavedDiscount.getDiscountIdentifier().getDiscountId());
+
+        assertNotNull(found);
         assertThat(presavedDiscount,samePropertyValuesAs(found));
     }
 
@@ -70,7 +72,7 @@ public class DiscountPersistenceTest {
         assertNotNull(savedDiscount.getId());
         assertNotNull(savedDiscount.getDiscountIdentifier().getDiscountId());
         assertEquals(expectedSalePercent, savedDiscount.getSalePercent());
-        assertEquals(expectedNewPrices, savedDiscount.getSalePrices());
+        assertEquals(expectedNewPrices, savedDiscount.getSalePrices().getNewPrices());
         assertEquals(expectedSaleStatus,savedDiscount.getSaleStatus());
 
     }

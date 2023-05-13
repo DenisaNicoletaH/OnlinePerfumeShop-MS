@@ -1,11 +1,13 @@
 package com.onlineperfumeshop.productsservice.presentationlayer.Product;
 
 
+import com.onlineperfumeshop.productsservice.datalayer.Product.Status;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Value
@@ -26,9 +28,11 @@ public class ProductResponseModel {
 
     private Double price;
 
+    private String status;
+
     private String scentType;
 
-    private Date dateProduced;
+    private LocalDate dateProduced;
 
 
 

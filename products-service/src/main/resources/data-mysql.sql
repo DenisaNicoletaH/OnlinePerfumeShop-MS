@@ -30,3 +30,6 @@ insert into discounts (discount_id, sale_percent, new_prices, sale_status) value
 insert into discounts (discount_id, sale_percent, new_prices, sale_status) values ('2f115d8b-5f71-414e-99a1-e6fe4037ca14', 31, 172.4, 'NOT_ON_SALE');
 insert into discounts (discount_id, sale_percent, new_prices, sale_status) values ('5f9adce2-818a-40db-9588-bf48d075892c', 23, 104.11, 'SALE');
 insert into discounts (discount_id, sale_percent, new_prices, sale_status) values ('282b6579-2f3d-4758-b7b8-f6ddd838ad8e', 60, 88.81, 'NOT_ON_SALE');
+insert into discounts (discount_id, sale_percent, new_prices, sale_status) values ('bdc3885e-a73f-4cff-a749-8a1bc5e471a2', 30, 110.30, 'SALE');
+insert into discounts (discount_id, sale_percent, new_prices, sale_status) values ('1053453f-2006-47d5-9231-f1693a5931e4', 10, 50.00, 'SALE');
+insert into discounts (discount_id, sale_percent, new_prices, sale_status) values ('a9305277-4332-4bcb-a73e-8d0f384b95d8', 80, 20.00, 'NOT_ON_SALE');

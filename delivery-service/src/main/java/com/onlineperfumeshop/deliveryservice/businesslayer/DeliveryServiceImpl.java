@@ -26,7 +26,7 @@ public class DeliveryServiceImpl implements DeliveryService{
         this.deliveryRequestMapper = deliveryRequestMapper;
     }
     @Override
-    public DeliveryResponseModel addDelivery(DeliveryRequestModel deliveryRequestModel, DeliveryIdentifier deliveryIdentifier) {
+    public DeliveryResponseModel addDelivery(DeliveryRequestModel deliveryRequestModel) {
         Delivery delivery = deliveryRequestMapper.entityToRequestModel(deliveryRequestModel);
 
         delivery.setClientIdentifier(new ClientIdentifier(deliveryRequestModel.getClientId()));

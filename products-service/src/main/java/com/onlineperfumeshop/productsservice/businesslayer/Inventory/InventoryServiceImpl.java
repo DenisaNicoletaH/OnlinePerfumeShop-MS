@@ -89,6 +89,7 @@ public class InventoryServiceImpl implements InventoryService {
     public ProductResponseModel updateProduct(ProductRequestModel productRequestModel, String productId) {
 
         Product product = productRequestMapper.entityToRequestModel(productRequestModel);
+        product.setInventoryIdentifier(new InventoryIdentifier(productRequestModel.getInventoryId()));
         product.setDiscountIdentifier(new DiscountIdentifier(productRequestModel.getDiscountId()));
         Product existingProduct = productRepository.findByProductIdentifier_ProductId(productId);
         if (existingProduct == null) {

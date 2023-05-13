@@ -380,10 +380,6 @@ public class ClientControllerIntegrationTest {
     @Test
     public void whenAddedClientWithValidValues_FirstName_ThenReturnClient() {
 
-
-
-
-
         ClientRequestModel clientRequestModel = newClientRequestModel(VALID_CLIENTS_FIRSTNAME, VALID_CLIENTS_LASTNAME, VALID_CLIENTS_EMAIL, VALID_CLIENTS_CITY, VALID_CLIENTS_COUNTRY, VALID_CLIENTS_STREETADDRESS, VALID_CLIENTS_PROVINCE, VALID_CLIENTS_POSTALCODE, VALID_CLIENTS_PHONENUMBER, VALID_CLIENTS_COUNTRYCODE);
 
         webTestClient.post()

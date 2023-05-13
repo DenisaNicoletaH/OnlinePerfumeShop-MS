@@ -9,7 +9,7 @@ import java.util.List;
 public interface DeliveryService {
 
 
-    DeliveryResponseModel addDelivery(DeliveryRequestModel deliveryRequestModel, DeliveryIdentifier deliveryIdentifier);
+    DeliveryResponseModel addDelivery(DeliveryRequestModel deliveryRequestModel);
 
     DeliveryResponseModel getDeliveryByIdentifier(String deliveryId);
 

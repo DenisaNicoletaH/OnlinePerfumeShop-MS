@@ -1,11 +1,9 @@
 package com.onlineperfumeshop.deliveryservice.Utils.Exceptions;
 
-public class DeliveryNotFoundException extends RuntimeException{
+public class DeliveryNotFoundException extends RuntimeException {
 
-    public DeliveryNotFoundException(String message) { super(message); }
-
-    public DeliveryNotFoundException(Throwable cause) { super(cause); }
-
-    public DeliveryNotFoundException(String message, Throwable cause) { super(message, cause); }
+    public DeliveryNotFoundException(String message) {
+        super(message);
+    }
 
 }

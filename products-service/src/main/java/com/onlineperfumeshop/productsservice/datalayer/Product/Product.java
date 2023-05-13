@@ -6,6 +6,7 @@ import com.onlineperfumeshop.productsservice.datalayer.Inventory.InventoryIdenti
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -47,7 +48,8 @@ public class Product {
         this.productIdentifier = new ProductIdentifier();
     }
 
-    public Product(String name, Double price, String brand, Date dateProduced, String scentType,Status status,InventoryIdentifier inventoryIdentifier,DiscountIdentifier discountIdentifier) {
+    public Product(String name, Double price, String brand, LocalDate dateProduced, String scentType, Status status, InventoryIdentifier inventoryIdentifier, DiscountIdentifier discountIdentifier) {
+       productIdentifier=new ProductIdentifier();
         this.name = name;
         this.price = price;
         this.brand = brand;
@@ -56,6 +58,8 @@ public class Product {
         this.discountIdentifier=discountIdentifier;
         this.perfume = new Perfume(scentType,dateProduced);
     }
+
+
 
 
     public @NotNull String getName() {

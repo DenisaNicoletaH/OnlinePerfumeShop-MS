@@ -26,16 +26,17 @@ public class Discount {
     private DiscountIdentifier discountIdentifier;
 
 
-    public Discount() {
-        this.discountIdentifier=new DiscountIdentifier();
 
-    }
     public Discount(Integer salePercent,Double newPrices,SaleStatus saleStatus) {
+        discountIdentifier = new DiscountIdentifier();
         this.salePercent = salePercent;
         this.saleStatus=saleStatus;
         this.salePrices=new SalePrices(newPrices);
     }
+    public Discount() {
+        this.discountIdentifier=new DiscountIdentifier();
 
+    }
 
 
 
