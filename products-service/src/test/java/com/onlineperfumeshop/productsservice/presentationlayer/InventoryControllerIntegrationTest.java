@@ -2,6 +2,7 @@ package com.onlineperfumeshop.productsservice.presentationlayer;
 
 import com.onlineperfumeshop.productsservice.datalayer.Inventory.Inventory;
 import com.onlineperfumeshop.productsservice.datalayer.Inventory.InventoryRepository;
+import com.onlineperfumeshop.productsservice.datalayer.Product.ProductIdentifier;
 import com.onlineperfumeshop.productsservice.presentationlayer.Inventory.InventoryRequestModel;
 import com.onlineperfumeshop.productsservice.presentationlayer.Inventory.InventoryResponseModel;
 import org.junit.jupiter.api.Test;
@@ -36,6 +37,8 @@ public class InventoryControllerIntegrationTest {
     private final String BASE_URI_INVENTORIES = "/api/v1/inventories";
 
     private final String VALID_INVENTORY_ID = "13b581aa-1fcf-4d80-b8ab-68a9c791a299";
+    private final String VALID_PRODUCT_ID = "1bc9adfd-cd19-4d6e-9b62-f0e952569141";
+
 
     private final LocalDate VALID_LAST_UPDATE_DATE = LocalDate.parse("2018-11-19");
 
@@ -90,6 +93,34 @@ public class InventoryControllerIntegrationTest {
                 });
 
     }
+
+/*
+    @Test
+    public void whenUpdatedInventoryWithValidValues_ThenReturnNewInventory() {
+
+        String expectedInventoryId = "13b581aa-1fcf-4d80-b8ab-68a9c791a299";
+        LocalDate expectedLastUpdated = LocalDate.parse("2018-11-19");
+
+        InventoryRequestModel inventoryRequestModel = newInventoryRequestModel(expectedLastUpdated);
+
+
+        webTestClient.put()
+                .uri(BASE_URI_INVENTORIES + "/" + VALID_INVENTORY_ID )
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .bodyValue(inventoryRequestModel)
+                .exchange()
+                .expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$.inventoryId").isEqualTo(VALID_INVENTORY_ID)
+                // .jsonPath("$.productId").isEqualTo(VALID_PRODUCT_ID)
+                .jsonPath("$.lastUpdated").isEqualTo(expectedInventoryId);
+
+    }
+
+
+ */
 
 
 

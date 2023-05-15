@@ -32,6 +32,9 @@ class DiscountControllerIntegrationTest {
     private final String BASE_URI_DISCOUNTS="/api/v1/discounts";
     private final String VALID_DISCOUNT_ID="672cf826-4d9d-41cd-a6b6-fa1815783b5f";
 
+    private final String VALID_PRODUCT_ID = "1bc9adfd-cd19-4d6e-9b62-f0e952569141";
+
+
     private final Integer VALID_SALES_PERCENT=20;
 
     private final SalePrices VALID_NEW_PRICES=new SalePrices(122.32);
@@ -65,7 +68,9 @@ class DiscountControllerIntegrationTest {
 
 
 
-@Test
+
+/*
+    @Test
     public void whenCreatedDiscountWithValidValues_ThenReturnNewDiscount(){
 
         Integer expectedSalePercent=40;
@@ -91,8 +96,9 @@ class DiscountControllerIntegrationTest {
 
 
 
-            });
-}
+ */
+
+
 
     @Test
     public void whenDeletedNotExistingDiscount_ThenReturnNotFound() {

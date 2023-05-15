@@ -1,5 +1,15 @@
   services:
-
+    api-gateway:
+      build: api-gateway
+      hostname: api-gateway
+      ports:
+        - "8080:8080"
+      environment:
+        - SPRING_PROFILES_ACTIVE=docker
+      depends_on:
+        - clients-service
+        - products-service
+        - checkout-service
     clients-service:
       build: clients-service
       hostname: clients-service

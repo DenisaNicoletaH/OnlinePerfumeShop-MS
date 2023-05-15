@@ -41,6 +41,7 @@ class ProductControllerIntegrationTest {
     private final String VALID_PRODUCT_ID = "1bc9adfd-cd19-4d6e-9b62-f0e952569141";
 
     private final String VALID_DISCOUNT_ID = "672cf826-4d9d-41cd-a6b6-fa1815783b5f";
+    private final String BASE_URI_DISCOUNTS="/api/v1/discounts";
 
     private final String VALID_INVENTORY_ID = "d846a5a7-2e1c-4c79-809c-4f3f471e826d";
 
@@ -86,6 +87,21 @@ class ProductControllerIntegrationTest {
                 .expectBody().jsonPath("$.productId").isEqualTo(VALID_PRODUCT_ID);
 
     }
+    //return products by discountId
+    @Test
+    public void whenDiscountIdExists_thenReturnProducts() {
+        Integer productsReturned = 4;
+
+        webTestClient.get()
+                .uri(BASE_URI_DISCOUNTS + "/" + VALID_DISCOUNT_ID)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange().expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$.discountId").isEqualTo(VALID_DISCOUNT_ID)
+                .jsonPath("$.length()").isEqualTo(productsReturned);
+
+    }
 
     @Test
     public void whenUpdatedProductsWithValidValues_ThenReturnUpdatedProducts() {
@@ -112,7 +128,8 @@ class ProductControllerIntegrationTest {
     }
 
 
-    //ConflictProductionException
+
+        //ConflictProductionException
 
 
 
