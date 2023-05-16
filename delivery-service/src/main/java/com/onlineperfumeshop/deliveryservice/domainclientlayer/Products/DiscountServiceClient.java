@@ -1,14 +1,10 @@
-package com.onlineperfumeshop.apigateway.domainclientlayer;
+package com.onlineperfumeshop.deliveryservice.domainclientlayer.Products;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onlineperfumeshop.apigateway.Utils.Exceptions.Client.ClientInvalidInputException;
-import com.onlineperfumeshop.apigateway.Utils.Exceptions.Client.NotFoundException;
-import com.onlineperfumeshop.apigateway.Utils.HttpErrorInfo;
-import com.onlineperfumeshop.apigateway.presentationlayer.Client.ClientRequestModel;
-import com.onlineperfumeshop.apigateway.presentationlayer.Client.ClientResponseModel;
-import com.onlineperfumeshop.apigateway.presentationlayer.Discount.DiscountRequestModel;
-import com.onlineperfumeshop.apigateway.presentationlayer.Discount.DiscountResponseModel;
-import com.onlineperfumeshop.apigateway.presentationlayer.Products.ProductResponseModel;
+
+import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.DeliveryInvalidInputException;
+import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.DeliveryNotFoundException;
+import com.onlineperfumeshop.deliveryservice.Utils.HttpErrorInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -55,10 +51,10 @@ public class DiscountServiceClient {
 
     private RuntimeException handleHttpDiscountException(HttpClientErrorException ex) {
         if (ex.getStatusCode() == NOT_FOUND) {
-            return new NotFoundException(getErrorMessage(ex));
+            return new DeliveryNotFoundException(getErrorMessage(ex));
         }
         if (ex.getStatusCode() == UNPROCESSABLE_ENTITY) {
-            return new ClientInvalidInputException(getErrorMessage(ex));
+            return new DeliveryInvalidInputException(getErrorMessage(ex));
         }
         log.warn("Got a unexpected HTTP error: {}, will rethrow it", ex.getStatusCode());
         log.warn("Error body: {}", ex.getResponseBodyAsString());
@@ -73,7 +69,7 @@ public class DiscountServiceClient {
         }
     }
 
-
+/*
     public DiscountResponseModel addDiscount(DiscountRequestModel discountRequestModel) {
         DiscountResponseModel discountResponseModel=new DiscountResponseModel();
         try {
@@ -102,6 +98,8 @@ public class DiscountServiceClient {
             throw handleHttpDiscountException(ex);
         }
     }
+
+ */
 
 
     public DiscountResponseModel[] getDiscounts() {

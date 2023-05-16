@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("api/v1/checkouts")
 public class CheckoutController {
 
-private CheckoutServiceClient checkoutServiceClient;
+private final CheckoutServiceClient checkoutServiceClient;
 
     public CheckoutController(CheckoutServiceClient checkoutServiceClient) {
         this.checkoutServiceClient = checkoutServiceClient;

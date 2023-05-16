@@ -135,27 +135,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
 
-    @Override
-    public InventoryResponseModel updateInventory(InventoryRequestModel inventoryRequestModel, String inventoryId) {
-        Inventory inventory = inventoryRequestMapper.requestModelToEntity(inventoryRequestModel);
-        Inventory existingInventory = inventoryRepository.findByInventoryIdentifier_InventoryId(inventoryId);
-        if (existingInventory == null) {
-            throw new NotFoundException("No inventory was found with id : " + inventoryId);
-        }
-        inventory.setId(existingInventory.getId());
-        inventory.setInventoryIdentifier(existingInventory.getInventoryIdentifier());
 
-
-        inventory.setInventoryIdentifier(existingInventory.getInventoryIdentifier());
-        inventory.setId(existingInventory.getId());
-
-
-        Inventory updatedInventory = inventoryRepository.save(inventory);
-        InventoryResponseModel inventoryResponse = inventoryResponseMapper.entityToResponseModel(updatedInventory);
-        return inventoryResponse;
-
-
-    }
 
     @Override
     public void deleteInventory(String inventoryId) {
@@ -207,12 +187,7 @@ public class InventoryServiceImpl implements InventoryService {
 
     }
 
-    @Override
-    public List<ProductResponseModel> getProductByBrand(String brand) {
-        List<ProductResponseModel> products = productResponseMapper.entityListToResponseModelList(productRepository.findAllProductsByBrand(brand));
-        return products;
 
-    }
 
     @Override
     public ProductDiscountResponseModel getProductByDiscountId(String discountId) {
@@ -227,6 +202,8 @@ public class InventoryServiceImpl implements InventoryService {
         List<ProductInventoryResponseModel> listInvProducts = productInventoryResponseModels.stream().toList();
         return productDiscountResponseMapper.entitiesToResponseModel(discountService.getDiscountByIdentifier(discountId), listInvProducts);
     }
+
+
 }
 
 

@@ -1,17 +1,20 @@
 package com.onlineperfumeshop.deliveryservice.presentationlayer;
 
 
-import lombok.AccessLevel;
+import com.onlineperfumeshop.deliveryservice.domainclientlayer.Checkout.CheckoutResponseModel;
+import com.onlineperfumeshop.deliveryservice.domainclientlayer.Clients.ClientResponseModel;
+import com.onlineperfumeshop.deliveryservice.domainclientlayer.Products.ProductResponseModel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
 
-@Value
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class DeliveryResponseModel {
 
 
@@ -22,8 +25,11 @@ public class DeliveryResponseModel {
 
     private String shippingUpdate;
 
-    private String clientId;
+    private ProductResponseModel product;
 
+    private CheckoutResponseModel checkoutInfo;
+
+    private ClientResponseModel client;
 
     private String streetAddress;
     private String city;

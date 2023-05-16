@@ -28,8 +28,8 @@ public class ClientServiceClient {
 
     public ClientServiceClient(RestTemplate restTemplate,
                                ObjectMapper objectMapper,
-                               @Value("${app.clients-service.host}") String clientServiceHost,
-                               @Value("${app.clients-service.port}") String clientServicePort) {
+                               @Value("${app.client-service.host}") String clientServiceHost,
+                               @Value("${app.client-service.port}") String clientServicePort) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
         this.CLIENT_SERVICE_BASE_URL = "http://" + clientServiceHost + ":" + clientServicePort + "/api/v1/clients";
@@ -119,7 +119,7 @@ public class ClientServiceClient {
 
 
         public ClientResponseModel[] getClients() {
-            ClientResponseModel clientResponseModel[] =null;
+            ClientResponseModel[] clientResponseModel =null;
             try {
                 String url = CLIENT_SERVICE_BASE_URL;
                 clientResponseModel = restTemplate

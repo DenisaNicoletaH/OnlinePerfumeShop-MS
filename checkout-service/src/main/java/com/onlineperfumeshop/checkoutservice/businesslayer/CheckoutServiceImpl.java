@@ -6,6 +6,7 @@ import com.onlineperfumeshop.checkoutservice.Utils.Exceptions.NotFoundException;
 import com.onlineperfumeshop.checkoutservice.datalayer.Checkout;
 import com.onlineperfumeshop.checkoutservice.datalayer.CheckoutRepository;
 import com.onlineperfumeshop.checkoutservice.datalayer.PaymentMethod;
+import com.onlineperfumeshop.checkoutservice.datalayer.ProductIdentifier;
 import com.onlineperfumeshop.checkoutservice.datamapperlayer.CheckoutRequestMapper;
 import com.onlineperfumeshop.checkoutservice.datamapperlayer.CheckoutResponseMapper;
 import com.onlineperfumeshop.checkoutservice.presentationlayer.CheckoutRequestModel;
@@ -17,10 +18,10 @@ import java.util.List;
 @Service
 public class CheckoutServiceImpl implements CheckoutService {
 
-    private CheckoutRepository checkoutRepository;
+    private final CheckoutRepository checkoutRepository;
 
-    private CheckoutResponseMapper checkoutResponseMapper;
-    private CheckoutRequestMapper checkoutRequestMapper;
+    private final CheckoutResponseMapper checkoutResponseMapper;
+    private final CheckoutRequestMapper checkoutRequestMapper;
 
     public CheckoutServiceImpl(CheckoutRepository checkoutRepository, CheckoutResponseMapper checkoutResponseMapper, CheckoutRequestMapper checkoutRequestMapper) {
         this.checkoutRepository = checkoutRepository;
@@ -30,6 +31,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 
     @Override
     public CheckoutResponseModel addCheckout(CheckoutRequestModel checkoutRequestModel) {
+
         if(checkoutRequestModel.getAmount() < 0)
             throw new NegativeMoneyAmountException("Amount is negative : " + checkoutRequestModel.getAmount());
         if(checkoutRequestModel.getTotalAmount() < 0)
@@ -42,7 +44,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         Checkout checkout = checkoutRequestMapper.entityToRequestModel(checkoutRequestModel);
         PaymentMethod paymentMethod = new PaymentMethod(checkoutRequestModel.getPaymentType(), checkoutRequestModel.getTotalAmount());
         checkout.setPaymentMethod(paymentMethod);
-
+        checkout.setProductIdentifier(new ProductIdentifier(checkoutRequestModel.getProductId()));
         Checkout newCheckout = checkoutRepository.save(checkout);
         CheckoutResponseModel checkoutResponse = checkoutResponseMapper.entityToResponseModel(newCheckout);
         return checkoutResponse;

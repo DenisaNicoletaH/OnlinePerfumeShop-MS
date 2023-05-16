@@ -1,7 +1,13 @@
 package com.onlineperfumeshop.apigateway.presentationlayer.Delivery;
 
 
-import lombok.*;
+import com.onlineperfumeshop.apigateway.presentationlayer.Checkout.CheckoutResponseModel;
+import com.onlineperfumeshop.apigateway.presentationlayer.Client.ClientResponseModel;
+import com.onlineperfumeshop.apigateway.presentationlayer.Products.ProductResponseModel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -19,8 +25,11 @@ public class DeliveryResponseModel {
 
     private String shippingUpdate;
 
-    private String clientId;
+    private ProductResponseModel product;
 
+    private CheckoutResponseModel checkoutInfo;
+
+    private ClientResponseModel client;
 
     private String streetAddress;
     private String city;
