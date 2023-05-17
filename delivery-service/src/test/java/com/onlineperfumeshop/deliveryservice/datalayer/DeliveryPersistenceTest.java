@@ -1,19 +1,21 @@
 package com.onlineperfumeshop.deliveryservice.datalayer;
 
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 
 import java.time.LocalDate;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest
+@DataMongoTest
 class DeliveryPersistenceTest {
         private Delivery  presavedDelivery;
+
+
         @Autowired
         DeliveryRepository deliveryRepository;
 
@@ -39,11 +41,15 @@ class DeliveryPersistenceTest {
 
 
             //act
-            Delivery found=deliveryRepository.findByDeliveryIdentifier_DeliveryId(presavedDelivery.getDeliveryIdentifier().getDeliveryId());
+            Delivery found = deliveryRepository.findByDeliveryIdentifier_DeliveryId(presavedDelivery.getDeliveryIdentifier().getDeliveryId());
 
             //assert
             assertNotNull(found);
-            assertThat(presavedDelivery,samePropertyValuesAs(found));
+            MatcherAssert.assertThat(presavedDelivery.deliveryIdentifier.getDeliveryId(),samePropertyValuesAs(found.deliveryIdentifier.getDeliveryId()));
+            MatcherAssert.assertThat(presavedDelivery.clientIdentifier.getClientId(),samePropertyValuesAs(found.clientIdentifier.getClientId()));
+            MatcherAssert.assertThat(presavedDelivery.checkoutIdentifier.getCheckoutId(),samePropertyValuesAs(found.checkoutIdentifier.getCheckoutId()));
+
+            MatcherAssert.assertThat(presavedDelivery, samePropertyValuesAs(found,"deliveryIdentifier","clientIdentifier","checkoutIdentifier"));
         }
 
 
@@ -71,6 +77,7 @@ class DeliveryPersistenceTest {
             ClientIdentifier clientIdentifier=new ClientIdentifier();
             LocalDate arrivalTime=LocalDate.parse("2023-06-21");
             ShippingUpdate shippingUpdate=ShippingUpdate.IN_DELIVERY;
+
 
 
           Delivery  savedDelivery = deliveryRepository.save(new Delivery(checkoutIdentifier,warehouseLocation,clientIdentifier,new Address(),new Phone(),arrivalTime,shippingUpdate));
@@ -108,8 +115,11 @@ class DeliveryPersistenceTest {
 
             //assert
             assertNotNull(savedDelivery);
-            assertThat(savedDelivery, samePropertyValuesAs(presavedDelivery));
+            MatcherAssert.assertThat(savedDelivery, samePropertyValuesAs(presavedDelivery));
         }
+
+
+        //
     }
 
 
