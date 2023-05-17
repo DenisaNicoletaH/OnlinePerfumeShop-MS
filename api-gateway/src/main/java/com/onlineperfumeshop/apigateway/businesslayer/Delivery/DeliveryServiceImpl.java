@@ -16,10 +16,10 @@ import java.util.List;
 public class DeliveryServiceImpl implements DeliveryService {
 
 
-    private DeliveryServiceClient deliveryServiceClient;
+    private final DeliveryServiceClient deliveryServiceClient;
 
-    private CheckoutServiceClient checkoutServiceClient;
-    private ClientServiceClient clientServiceClient;
+    private final CheckoutServiceClient checkoutServiceClient;
+    private final ClientServiceClient clientServiceClient;
 
 
     public DeliveryServiceImpl(DeliveryServiceClient deliveryServiceClient, CheckoutServiceClient checkoutServiceClient, ClientServiceClient clientServiceClient){

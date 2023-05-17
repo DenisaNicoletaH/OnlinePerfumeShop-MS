@@ -1,25 +1,20 @@
-package com.onlineperfumeshop.apigateway.domainclientlayer;
+package com.onlineperfumeshop.deliveryservice.domainclientlayer.Products;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onlineperfumeshop.apigateway.Utils.Exceptions.Client.ClientInvalidInputException;
-import com.onlineperfumeshop.apigateway.Utils.Exceptions.Client.NotFoundException;
-import com.onlineperfumeshop.apigateway.Utils.HttpErrorInfo;
-import com.onlineperfumeshop.apigateway.presentationlayer.Client.ClientRequestModel;
-import com.onlineperfumeshop.apigateway.presentationlayer.Client.ClientResponseModel;
-import com.onlineperfumeshop.apigateway.presentationlayer.Inventory.InventoryRequestModel;
-import com.onlineperfumeshop.apigateway.presentationlayer.Inventory.InventoryResponseModel;
-import com.onlineperfumeshop.apigateway.presentationlayer.Products.ProductRequestModel;
-import com.onlineperfumeshop.apigateway.presentationlayer.Products.ProductResponseModel;
+
+import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.DeliveryInvalidInputException;
+import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.DeliveryNotFoundException;
+import com.onlineperfumeshop.deliveryservice.Utils.HttpErrorInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import javax.sound.sampled.Port;
 import java.io.IOException;
 
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 @Slf4j
 @Component
@@ -56,10 +51,10 @@ public class InventoryServiceClient {
     private RuntimeException handleHttpInventoriesException(HttpClientErrorException ex) {
 
         if (ex.getStatusCode() == NOT_FOUND) {
-            return new NotFoundException(getErrorMessage(ex));
+            return new DeliveryNotFoundException(getErrorMessage(ex));
         }
         if (ex.getStatusCode() == UNPROCESSABLE_ENTITY) {
-            return new ClientInvalidInputException(getErrorMessage(ex));
+            return new DeliveryInvalidInputException(getErrorMessage(ex));
         }
         log.warn("Got a unexpected HTTP error: {}, will rethrow it", ex.getStatusCode());
         log.warn("Error body: {}", ex.getResponseBodyAsString());
@@ -76,7 +71,7 @@ public class InventoryServiceClient {
 
 
 
-
+/*
     public InventoryResponseModel addInventory(InventoryRequestModel inventoryRequestModel) {
         InventoryResponseModel inventoryResponseModel=new InventoryResponseModel();
         try {
@@ -120,6 +115,23 @@ public class InventoryServiceClient {
         }
     }
 
+      public ProductResponseModel addProductToInventory(ProductRequestModel productRequestModel, String inventoryId) {
+        ProductResponseModel productResponseModel=new ProductResponseModel();
+        try {
+            String url = INVENTORIES_SERVICE_BASE_URL + "/" + inventoryId + "/products";
+             productResponseModel = restTemplate.postForObject(url, productRequestModel, ProductResponseModel.class);
+
+            log.debug("5. Received in AddProduct");
+        } catch (HttpClientErrorException ex) {
+            log.debug("5.");
+            throw handleHttpInventoriesException(ex);
+
+        }
+        return productResponseModel;
+    }
+
+ */
+
 
     public InventoryResponseModel[] getInventories() {
         InventoryResponseModel[] inventoryResponseModels = null;
@@ -137,20 +149,6 @@ public class InventoryServiceClient {
         return inventoryResponseModels;
     }
 
-    public ProductResponseModel addProductToInventory(ProductRequestModel productRequestModel, String inventoryId) {
-        ProductResponseModel productResponseModel=new ProductResponseModel();
-        try {
-            String url = INVENTORIES_SERVICE_BASE_URL + "/" + inventoryId + "/products";
-             productResponseModel = restTemplate.postForObject(url, productRequestModel, ProductResponseModel.class);
-
-            log.debug("5. Received in AddProduct");
-        } catch (HttpClientErrorException ex) {
-            log.debug("5.");
-            throw handleHttpInventoriesException(ex);
-
-        }
-        return productResponseModel;
-    }
 
     public ProductResponseModel[] getProductsByInventoryIdentifier_InventoryId(String inventoryId) {
         ProductResponseModel[] productResponseModel = null;

@@ -1,11 +1,10 @@
-package com.onlineperfumeshop.apigateway.domainclientlayer;
+package com.onlineperfumeshop.deliveryservice.domainclientlayer.Products;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onlineperfumeshop.apigateway.Utils.Exceptions.Client.ClientInvalidInputException;
-import com.onlineperfumeshop.apigateway.Utils.Exceptions.Client.NotFoundException;
-import com.onlineperfumeshop.apigateway.Utils.HttpErrorInfo;
-import com.onlineperfumeshop.apigateway.presentationlayer.Products.ProductRequestModel;
-import com.onlineperfumeshop.apigateway.presentationlayer.Products.ProductResponseModel;
+
+import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.DeliveryInvalidInputException;
+import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.DeliveryNotFoundException;
+import com.onlineperfumeshop.deliveryservice.Utils.HttpErrorInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -51,10 +50,10 @@ public class ProductServiceClient {
 
     private RuntimeException handleHttpProductException(HttpClientErrorException ex) {
         if (ex.getStatusCode() == NOT_FOUND) {
-            return new NotFoundException(getErrorMessage(ex));
+            return new DeliveryNotFoundException(getErrorMessage(ex));
         }
         if (ex.getStatusCode() == UNPROCESSABLE_ENTITY) {
-            return new ClientInvalidInputException(getErrorMessage(ex));
+            return new DeliveryInvalidInputException(getErrorMessage(ex));
         }
         log.warn("Got a unexpected HTTP error: {}, will rethrow it", ex.getStatusCode());
         log.warn("Error body: {}", ex.getResponseBodyAsString());
@@ -88,7 +87,7 @@ public class ProductServiceClient {
 
 
 
-
+/*
     public void updateProduct(ProductRequestModel productRequestModel, String productId) {
         try {
             String url = PRODUCT_SERVICE_BASE_URL + "/" + productId;
@@ -101,6 +100,7 @@ public class ProductServiceClient {
         }
     }
 
+ */
 
     public void deleteProduct (String productId) {
         try {

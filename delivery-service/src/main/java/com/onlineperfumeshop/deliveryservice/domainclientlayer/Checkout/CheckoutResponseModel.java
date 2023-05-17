@@ -1,16 +1,13 @@
-package com.onlineperfumeshop.checkoutservice.presentationlayer;
+package com.onlineperfumeshop.deliveryservice.domainclientlayer.Checkout;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
-@Value
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 public class CheckoutResponseModel {
 
 

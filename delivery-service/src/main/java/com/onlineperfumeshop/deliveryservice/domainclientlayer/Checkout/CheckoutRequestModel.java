@@ -1,4 +1,4 @@
-package com.onlineperfumeshop.checkoutservice.presentationlayer;
+package com.onlineperfumeshop.deliveryservice.domainclientlayer.Checkout;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -11,10 +11,8 @@ import java.util.Date;
 @Value
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class CheckoutResponseModel {
+public class CheckoutRequestModel {
 
-
-    private String checkoutId;
 
     private Double amount;
 
@@ -22,10 +20,15 @@ public class CheckoutResponseModel {
 
     private Double shipping;
 
+    private Date currentDate;
+
+    private String paymentType;
+
     private LocalDate endOfSaleDate;
     private Double totalAmount;
 
     private String productId;
-    private String paymentType;
+
 
 }
+

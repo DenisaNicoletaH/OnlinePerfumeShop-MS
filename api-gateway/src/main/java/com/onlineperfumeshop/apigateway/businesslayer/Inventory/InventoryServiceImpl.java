@@ -14,10 +14,10 @@ import java.util.List;
 @Service
 public class InventoryServiceImpl implements InventoryService{
 
-    private InventoryServiceClient inventoryServiceClient;
+    private final InventoryServiceClient inventoryServiceClient;
 
-    private DiscountServiceClient discountServiceClient;
- private ProductServiceClient productServiceClient;
+    private final DiscountServiceClient discountServiceClient;
+ private final ProductServiceClient productServiceClient;
 
     public InventoryServiceImpl(InventoryServiceClient inventoryServiceClient, DiscountServiceClient discountServiceClient,ProductServiceClient productServiceClient) {
         this.inventoryServiceClient = inventoryServiceClient;
