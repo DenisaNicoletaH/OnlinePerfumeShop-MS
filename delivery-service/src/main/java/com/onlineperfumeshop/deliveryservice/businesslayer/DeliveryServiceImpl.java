@@ -1,5 +1,6 @@
 package com.onlineperfumeshop.deliveryservice.businesslayer;
 
+import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.ConflictDeliveryException;
 import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.DeliveryNotFoundException;
 import com.onlineperfumeshop.deliveryservice.datalayer.*;
 import com.onlineperfumeshop.deliveryservice.datamapperlayer.DeliveryRequestMapper;
@@ -117,9 +118,8 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Override
     public DeliveryResponseModel getDeliveryByIdentifier(String deliveryId) {
 
+     ClientResponseModel clientResponseModel= clientServiceClient.getClientAggregate(deliveryId);
         Delivery delivery = deliveryRepository.findByDeliveryIdentifier_DeliveryId(deliveryId);
-        ClientResponseModel clientResponseModel= clientServiceClient.getClientAggregate(delivery.getClientIdentifier().getClientId());
-
         CheckoutResponseModel checkoutResponseModel = checkoutServiceClient.getCheckoutAggregate(delivery.getCheckoutIdentifier().getCheckoutId());
 
 
@@ -153,7 +153,9 @@ public class DeliveryServiceImpl implements DeliveryService {
         delivery.setId(existingDelivery.getId());
 
         Boolean existing = deliveryRepository.existsDeliveriesByAddress_StreetAddressAndAddress_PostalCodeAndAddress_CityAndAddress_Country(deliveryRequestModel.getStreetAddress(), deliveryRequestModel.getPostalCode(), deliveryRequestModel.getCity(), deliveryRequestModel.getCountry());
-
+        if (existing) {
+            throw new ConflictDeliveryException("This is invalid" + (deliveryRequestModel.getStreetAddress() + " " + deliveryRequestModel.getPostalCode() + " " + deliveryRequestModel.getCity() + " " + deliveryRequestModel.getCountry()));
+        } else {
             Delivery newDelivery = deliveryRepository.save(delivery);
             CheckoutResponseModel checkoutResponseModel = checkoutServiceClient.getCheckoutAggregate(delivery.getCheckoutIdentifier().getCheckoutId());
 
@@ -162,7 +164,7 @@ public class DeliveryServiceImpl implements DeliveryService {
             ProductResponseModel productResponseModel = productServiceClient.getProductAggregate(checkoutResponseModel.getProductId());
             DeliveryResponseModel deliveryResponse = deliveryResponseMapper.entityToResponseModel(newDelivery,productResponseModel,checkoutResponseModel,clientServiceClient.getClientAggregate(deliveryRequestModel.getClientId()));
             return deliveryResponse;
-
+        }
     }
 
 }

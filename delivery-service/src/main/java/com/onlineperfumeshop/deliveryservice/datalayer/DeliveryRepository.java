@@ -8,4 +8,5 @@ public interface DeliveryRepository extends MongoRepository<Delivery, String> {
 
     Boolean existsDeliveriesByAddress_StreetAddressAndAddress_PostalCodeAndAddress_CityAndAddress_Country(String streetAddress,String postalCode,String city, String country );
 
+    Boolean findDeliveriesById(String deliveryId);
 }

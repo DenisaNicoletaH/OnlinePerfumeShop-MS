@@ -5,7 +5,7 @@ plugins {
 	id 'io.freefair.lombok' version '6.6.1'
 	id 'jacoco'
 }
-group = 'com.com.onlineperfumeshop'
+group = 'com.com.onlineperfumeshop.deliveriesservice'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 ext {
@@ -30,7 +30,6 @@ dependencies {
 	testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo.spring30x:4.6.2'
-	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas' // added for HATEOAS from spring initializer
 }

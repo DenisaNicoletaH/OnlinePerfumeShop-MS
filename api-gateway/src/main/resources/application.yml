@@ -17,9 +17,6 @@ app:
   checkout-service:
     host: localhost
     port: 7003
-  delivery-service:
-    host: localhost
-    port: 8080
 
 ---
 
