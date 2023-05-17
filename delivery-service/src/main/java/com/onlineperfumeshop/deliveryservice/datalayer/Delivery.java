@@ -24,10 +24,10 @@ public class Delivery {
     @Id
     private String id;
 
-    private CheckoutIdentifier checkoutIdentifier;
+     CheckoutIdentifier checkoutIdentifier;
 
-    private DeliveryIdentifier deliveryIdentifier;
-    private ClientIdentifier clientIdentifier;
+    DeliveryIdentifier deliveryIdentifier;
+    ClientIdentifier clientIdentifier;
 
 
     private String clientFirstName;

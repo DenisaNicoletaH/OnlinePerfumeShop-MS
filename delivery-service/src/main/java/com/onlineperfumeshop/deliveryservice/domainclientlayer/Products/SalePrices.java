@@ -8,10 +8,10 @@ public class SalePrices {
 
 
     private Double newPrices;
-
-    @SuppressWarnings("unused")
-    public SalePrices() {
-    }
+//
+//    @SuppressWarnings("unused")
+//    public SalePrices() {
+//    }
 
     public SalePrices(@NotNull Double newPrices) {
 

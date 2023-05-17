@@ -1,9 +1,10 @@
 package com.onlineperfumeshop.deliveryservice.datalayer;
 
+
 import java.util.UUID;
 
 public class CheckoutIdentifier {
-    private final String checkoutId;
+    private String checkoutId;
 
     public CheckoutIdentifier() {
         this.checkoutId = UUID.randomUUID().toString();
@@ -12,6 +13,7 @@ public class CheckoutIdentifier {
     public CheckoutIdentifier(String checkoutId) {
         this.checkoutId = checkoutId;
     }
+
 
     public String getCheckoutId() {return this.checkoutId;}
 }

@@ -10,8 +10,8 @@ public class DeliveryServiceApplication {
 	@Bean
 	RestTemplate restTemplate() {return new RestTemplate();}
 
-	public static void main(String[] args) {
-		SpringApplication.run(DeliveryServiceApplication.class, args);
-	}
+//	public static void main(String[] args) {
+//		SpringApplication.run(DeliveryServiceApplication.class, args);
+//	}
 
 }
