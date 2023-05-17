@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class CheckoutServiceImpl implements CheckoutService{
 
-private final CheckoutServiceClient checkoutServiceClient;
+private CheckoutServiceClient checkoutServiceClient;
 
     public CheckoutServiceImpl(CheckoutServiceClient checkoutServiceClient) {
         this.checkoutServiceClient = checkoutServiceClient;

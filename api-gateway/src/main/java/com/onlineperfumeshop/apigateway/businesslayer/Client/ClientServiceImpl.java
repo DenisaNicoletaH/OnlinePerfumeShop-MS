@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class ClientServiceImpl implements ClientService {
 
-    private final ClientServiceClient clientServiceClient;
+    private ClientServiceClient clientServiceClient;
 
 
     public ClientServiceImpl(ClientServiceClient clientServiceClient) {

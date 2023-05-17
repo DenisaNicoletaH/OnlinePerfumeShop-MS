@@ -123,6 +123,7 @@ class DeliveryControllerIntegrationTest {
                 .value(val -> {
                     assertNotNull(val);
                     assertEquals(val.getCheckoutId(), expectedCheckoutId);
+                    assertEquals(val.getClientId(), expectedClientId);
                     assertEquals(val.getWarehouseLocation(), expectedWarehouseLocation);
                     assertEquals(val.getPhoneNumber(), expectedPhoneNumber);
                     assertEquals(val.getArrivalTime(), expectedArrivalTime);
@@ -202,7 +203,7 @@ class DeliveryControllerIntegrationTest {
 
     }
 
-/*
+
     //RECHECK
     //CONFLICT
     @Test
@@ -225,8 +226,6 @@ class DeliveryControllerIntegrationTest {
 
 
     }
-
- */
 
     @Test
     public void whenAddedDeliveryWIthInvalidPhoneValues_ThenReturnDelivery(){

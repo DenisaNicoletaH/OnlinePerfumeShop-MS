@@ -12,7 +12,6 @@ import java.util.List;
 public interface CheckoutResponseMapper {
 
     @Mapping(expression = "java(checkout.getCheckoutIdentifier().getCheckoutId())",  target = "checkoutId")
-    @Mapping(expression = "java(checkout.getProductIdentifier().getProductId())",  target = "productId")
     @Mapping(expression = "java(checkout.getPaymentMethod().getPaymentType())", target = "paymentType" )
     @Mapping(expression = "java(checkout.getPaymentMethod().getTotalAmount())", target = "totalAmount" )
     CheckoutResponseModel entityToResponseModel(Checkout checkout);

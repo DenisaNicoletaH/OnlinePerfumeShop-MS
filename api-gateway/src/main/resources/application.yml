@@ -7,16 +7,20 @@ logging:
   level:
     root: INFO
     com.onlineperfumeshop: DEBUG
+
 app:
-  client-service:
+  clients-service:
     host: localhost
     port: 7001
-  product-service:
-    host: localhost
-    port: 7002
   checkout-service:
     host: localhost
+    port: 7002
+  products-service:
+    host: localhost
     port: 7003
+  delivery-service:
+    host: localhost
+    port: 7004
 
 ---
 
@@ -29,14 +33,14 @@ server:
   port: 8080
 
 app:
-  client-service:
-    host: client-service
+  clients-service:
+    host: clients-service
     port: 8080
   checkout-service:
     host: checkout-service
     port: 8080
-  product-service:
-    host: product-service
+  products-service:
+    host: products-service
     port: 8080
   delivery-service:
     host: delivery-service

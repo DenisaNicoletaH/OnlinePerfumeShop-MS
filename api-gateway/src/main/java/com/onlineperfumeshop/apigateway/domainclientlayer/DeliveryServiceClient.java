@@ -118,7 +118,7 @@ public class DeliveryServiceClient {
 
 //get All
     public DeliveryResponseModel[] getDeliveries() {
-        DeliveryResponseModel[] deliveryResponseModel = null;
+        DeliveryResponseModel deliveryResponseModel[] = null;
         try {
             String url = DELIVERY_SERVICE_BASE_URL ;
             deliveryResponseModel= restTemplate

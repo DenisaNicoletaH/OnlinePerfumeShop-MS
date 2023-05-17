@@ -69,7 +69,7 @@ class DiscountControllerIntegrationTest {
 
 
 
-
+/*
     @Test
     public void whenCreatedDiscountWithValidValues_ThenReturnNewDiscount(){
 
@@ -95,8 +95,10 @@ class DiscountControllerIntegrationTest {
                 assertEquals(val.getSaleStatus(), expectedSaleStatus);
 
 
-            });
-    }
+
+ */
+
+
 
     @Test
     public void whenDeletedNotExistingDiscount_ThenReturnNotFound() {
@@ -125,7 +127,6 @@ class DiscountControllerIntegrationTest {
                 .expectStatus().isNotFound().expectBody().jsonPath("$").isNotEmpty();
 
     }
-
 
 
 

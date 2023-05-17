@@ -118,7 +118,7 @@ public class CheckoutServiceClient {
 
 
     public CheckoutResponseModel[] getCheckouts() {
-        CheckoutResponseModel[] checkoutResponseModels = null;
+        CheckoutResponseModel checkoutResponseModels[] = null;
         try {
             String url = CHECKOUTS_SERVICE_BASE_URL ;
             checkoutResponseModels = restTemplate

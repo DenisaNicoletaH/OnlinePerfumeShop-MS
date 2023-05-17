@@ -20,12 +20,6 @@ public class DeliveryRequestModel {
     private String clientId;
 
 
-    private String productId;
-
-    private String inventoryId;
-
-    private String discountId;
-
     private String streetAddress;
     private String city;
     private String country;

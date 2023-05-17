@@ -31,8 +31,8 @@ public class InventoryServiceClient {
 
     public InventoryServiceClient(RestTemplate restTemplate,
                                ObjectMapper objectMapper,
-                               @Value("${app.product-service.host}") String inventoriesServiceHost,
-                               @Value("${app.product-service.port}") String inventoriesServicePort) {
+                               @Value("${app.products-service.host}") String inventoriesServiceHost,
+                               @Value("${app.products-service.port}") String inventoriesServicePort) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
         this.INVENTORIES_SERVICE_BASE_URL = "http://" + inventoriesServiceHost + ":" + inventoriesServicePort + "/api/v1/inventories";
@@ -122,7 +122,7 @@ public class InventoryServiceClient {
 
 
     public InventoryResponseModel[] getInventories() {
-        InventoryResponseModel[] inventoryResponseModels = null;
+        InventoryResponseModel inventoryResponseModels[] = null;
         try {
             String url = INVENTORIES_SERVICE_BASE_URL;
             inventoryResponseModels = restTemplate
@@ -153,7 +153,7 @@ public class InventoryServiceClient {
     }
 
     public ProductResponseModel[] getProductsByInventoryIdentifier_InventoryId(String inventoryId) {
-        ProductResponseModel[] productResponseModel = null;
+        ProductResponseModel productResponseModel[] = null;
         try {
             String url = INVENTORIES_SERVICE_BASE_URL + "/" + inventoryId + "/products" ;
             productResponseModel = restTemplate
@@ -173,7 +173,7 @@ public class InventoryServiceClient {
 
 
     public ProductResponseModel[] getProductByBrand(String brand) {
-        ProductResponseModel[] productResponseModel = null;
+        ProductResponseModel productResponseModel[] = null;
         try {
             String url = INVENTORIES_SERVICE_BASE_URL + "/" + brand ;
             productResponseModel = restTemplate

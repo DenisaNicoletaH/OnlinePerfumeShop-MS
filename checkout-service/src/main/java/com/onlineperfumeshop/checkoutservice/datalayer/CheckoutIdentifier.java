@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class CheckoutIdentifier {
 
-    private final String checkoutId;
+    private String checkoutId;
 
     public CheckoutIdentifier() {
         this.checkoutId = UUID.randomUUID().toString();

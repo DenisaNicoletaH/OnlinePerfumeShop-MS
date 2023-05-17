@@ -30,6 +30,7 @@ public interface InventoryService {
   InventoryResponseModel getInventoryByInventoryIdentifier(String inventoryId);
    List<InventoryResponseModel> getInventories();
 
+    InventoryResponseModel updateInventory(InventoryRequestModel inventoryRequestModel, String inventoryId);
     void deleteInventory(String inventoryId);
 
 
@@ -40,8 +41,9 @@ public interface InventoryService {
     List<ProductResponseModel> getProductsByInventoryIdentifier_InventoryId(String inventoryId);
 
 
+    List<ProductResponseModel> getProductByBrand(String brand);
 
-     ProductDiscountResponseModel getProductByDiscountId(String discountId);
+    ProductDiscountResponseModel getProductByDiscountId(String discountId);
 
 
 

@@ -17,10 +17,10 @@ import java.util.List;
 public class DiscountServiceImpl implements DiscountService {
 
 
-    private final DiscountRepository discountRepository;
+    private DiscountRepository discountRepository;
 
-    private final DiscountResponseMapper discountResponseMapper;
-    private final DiscountRequestMapper discountRequestMapper;
+    private DiscountResponseMapper discountResponseMapper;
+    private DiscountRequestMapper discountRequestMapper;
 
 
     public DiscountServiceImpl(DiscountRepository discountRepository, DiscountResponseMapper discountResponseMapper, DiscountRequestMapper discountRequestMapper) {

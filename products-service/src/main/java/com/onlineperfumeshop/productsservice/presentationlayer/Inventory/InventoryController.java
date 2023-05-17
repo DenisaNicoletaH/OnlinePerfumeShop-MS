@@ -35,6 +35,12 @@ public class InventoryController {
         return ResponseEntity.status(HttpStatus.OK).body(inventoryService.getInventoryByInventoryIdentifier(inventoryId));
     }
 
+
+    @PutMapping("/{inventoryId}/products")
+     ResponseEntity<InventoryResponseModel> updateInventory(@RequestBody InventoryRequestModel inventoryRequestModel, @PathVariable String productId) {
+        return ResponseEntity.status(HttpStatus.OK).body(inventoryService.updateInventory(inventoryRequestModel, productId));
+    }
+
     @DeleteMapping("/{inventoryId}")
     public ResponseEntity<Void> deleteInventory(@PathVariable String inventoryId) {
         inventoryService.deleteInventory(inventoryId);

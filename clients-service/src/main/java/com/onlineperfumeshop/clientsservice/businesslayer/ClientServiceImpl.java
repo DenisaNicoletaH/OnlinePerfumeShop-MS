@@ -19,9 +19,9 @@ import java.util.List;
 public class ClientServiceImpl implements ClientService {
 
 
-    private final ClientRepository clientRepository;
-    private final ClientResponseMapper clientResponseMapper;
-    private final ClientRequestMapper clientRequestMapper;
+    private ClientRepository clientRepository;
+    private ClientResponseMapper clientResponseMapper;
+    private ClientRequestMapper clientRequestMapper;
 
     public ClientServiceImpl(ClientRepository clientRepository, ClientResponseMapper clientResponseMapper, ClientRequestMapper clientRequestMapper) {
         this.clientRepository = clientRepository;

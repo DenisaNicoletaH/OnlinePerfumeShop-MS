@@ -25,7 +25,7 @@ public class CheckoutResponseModel {
     private LocalDate endOfSaleDate;
     private Double totalAmount;
 
-    private String productId;
+
     private String paymentType;
 
 }

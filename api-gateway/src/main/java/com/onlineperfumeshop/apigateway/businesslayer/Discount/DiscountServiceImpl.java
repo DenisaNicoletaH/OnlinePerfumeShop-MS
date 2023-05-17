@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class DiscountServiceImpl implements DiscountService{
 
-    private final DiscountServiceClient discountServiceClient;
+    private DiscountServiceClient discountServiceClient;
 
 
     public DiscountServiceImpl(DiscountServiceClient discountServiceClient) {

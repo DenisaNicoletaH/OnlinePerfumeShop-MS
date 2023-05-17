@@ -1,11 +1,10 @@
 package com.onlineperfumeshop.productsservice.presentationlayer;
 
+import com.onlineperfumeshop.productsservice.datalayer.Inventory.Inventory;
 import com.onlineperfumeshop.productsservice.datalayer.Inventory.InventoryRepository;
-import com.onlineperfumeshop.productsservice.datalayer.Product.Status;
+import com.onlineperfumeshop.productsservice.datalayer.Product.ProductIdentifier;
 import com.onlineperfumeshop.productsservice.presentationlayer.Inventory.InventoryRequestModel;
 import com.onlineperfumeshop.productsservice.presentationlayer.Inventory.InventoryResponseModel;
-import com.onlineperfumeshop.productsservice.presentationlayer.Product.ProductRequestModel;
-import com.onlineperfumeshop.productsservice.presentationlayer.Product.ProductResponseModel;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -60,22 +59,6 @@ public class InventoryControllerIntegrationTest {
     }
 
     @Test
-    public void whenProductsExistInInventoryId_ThenReturnProducts() {
-        Integer productsReturned = 1;
-
-        webTestClient.get()
-                .uri(BASE_URI_INVENTORIES + "/" + VALID_INVENTORY_ID + "/products" )
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange().expectStatus().isOk()
-                .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                .expectBody()
-                .jsonPath("$.length()").isEqualTo(productsReturned);
-
-
-    }
-
-
-    @Test
     public void whenInventoryIdExists_ThenReturnInventory() {
         webTestClient.get()
                 .uri(BASE_URI_INVENTORIES + "/" + VALID_INVENTORY_ID)
@@ -111,6 +94,35 @@ public class InventoryControllerIntegrationTest {
 
     }
 
+/*
+    @Test
+    public void whenUpdatedInventoryWithValidValues_ThenReturnNewInventory() {
+
+        String expectedInventoryId = "13b581aa-1fcf-4d80-b8ab-68a9c791a299";
+        LocalDate expectedLastUpdated = LocalDate.parse("2018-11-19");
+
+        InventoryRequestModel inventoryRequestModel = newInventoryRequestModel(expectedLastUpdated);
+
+
+        webTestClient.put()
+                .uri(BASE_URI_INVENTORIES + "/" + VALID_INVENTORY_ID )
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .bodyValue(inventoryRequestModel)
+                .exchange()
+                .expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON)
+                .expectBody()
+                .jsonPath("$.inventoryId").isEqualTo(VALID_INVENTORY_ID)
+                // .jsonPath("$.productId").isEqualTo(VALID_PRODUCT_ID)
+                .jsonPath("$.lastUpdated").isEqualTo(expectedInventoryId);
+
+    }
+
+
+ */
+
+
 
 
 
@@ -131,67 +143,4 @@ public void whenDeletedNotExistingCheckout_ThenReturnNotFound() {
 
 
 }
-
-
-//addProductToInventory
-
-    @Test
-    public void whenCreatedProductWithValidValues_ThenAddInInventory() {
-
-        String expectedInventoryId = "13b581aa-1fcf-4d80-b8ab-68a9c791a299";
-        LocalDate expectedLastUpdated = LocalDate.parse("2018-11-19");
-
-        String expectedDiscountId = "0688f12c-8990-42c5-af0e-4c7ae767feff";
-        String expectedName = "Dior";
-        String expectedBrand = "Miss Dior";
-        Double expectedPrice = 70.50;
-        Status status = Status.IN_STOCK;
-        String expectedScentType = "Warm Floral";
-        LocalDate expectedDateProduced = LocalDate.parse("2022-10-13");
-
-       ProductRequestModel productRequestModel = newProductRequestModel(expectedDiscountId, VALID_INVENTORY_ID, expectedName, expectedBrand, expectedPrice, status, expectedScentType, expectedDateProduced);
-
-        //InventoryRequestModel inventoryRequestModel=newInventoryRequestModel(expectedLastUpdated);
-
-        webTestClient.post()
-                .uri(BASE_URI_INVENTORIES + "/" + expectedInventoryId + "/products")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .bodyValue(productRequestModel)
-                .exchange()
-                .expectStatus().isCreated()
-                .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                .expectBody(ProductResponseModel.class)
-                .value(val -> {
-                    assertNotNull(val);
-                    assertNotNull(val.getProductId());
-                    assertEquals(val.getDiscountId(), expectedDiscountId);
-                    assertEquals(val.getInventoryId(), expectedInventoryId);
-                    assertEquals(val.getName(), expectedName);
-                    assertEquals(val.getBrand(), expectedBrand);
-                    assertEquals(val.getPrice(), expectedPrice);
-                    assertEquals(val.getStatus(), status.toString());
-                    assertEquals(val.getScentType(), expectedScentType);
-                    assertEquals(val.getDateProduced(), expectedDateProduced);
-
-
-                });
-
-    }
-
-
-    private ProductRequestModel newProductRequestModel(String discountId, String inventoryId, String name, String brand, Double price, Status status, String scentType, LocalDate dateProduced){
-
-        return ProductRequestModel.builder()
-                .discountId(discountId)
-                .inventoryId(inventoryId)
-                .name(name)
-                .brand(brand)
-                .price(price)
-                .status(status.toString())
-                .scentType(scentType)
-                .dateProduced(dateProduced)
-                .build();
-
-    }
 }

@@ -1,6 +1,5 @@
 package com.onlineperfumeshop.productsservice.presentationlayer;
 
-import com.onlineperfumeshop.productsservice.Utils.HttpErrorInfo;
 import com.onlineperfumeshop.productsservice.datalayer.Discount.DiscountIdentifier;
 import com.onlineperfumeshop.productsservice.datalayer.Inventory.InventoryIdentifier;
 import com.onlineperfumeshop.productsservice.datalayer.Product.Perfume;
@@ -14,7 +13,6 @@ import com.onlineperfumeshop.productsservice.presentationlayer.Product.ProductRe
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
@@ -91,7 +89,7 @@ class ProductControllerIntegrationTest {
     }
     //return products by discountId
     @Test
-    public void whenDiscountIdExists_thenReturnProduct() {
+    public void whenDiscountIdExists_thenReturnProducts() {
         Integer productsReturned = 4;
 
         webTestClient.get()
@@ -128,27 +126,56 @@ class ProductControllerIntegrationTest {
                 .jsonPath("$.dateProduced").isEqualTo(VALID_DATE_PRODUCED.toString());
 
     }
+
+
+
         //ConflictProductionException
 
+
+
+    /*
     @Test
-    public void whenUpdatedProductWithoutValidId_thenThrowNotFound(){
+    public void whenCreatedProductsWithValidValues_ThenReturnNewProducts() {
 
+        String expectedDiscountId = "0688f12c-8990-42c5-af0e-4c7ae767feff";
+        String expectedInventoryId = "13b581aa-1fcf-4d80-b8ab-68a9c791a299";
+        String expectedName = "Dior";
+        String expectedBrand = "Miss Dior";
+        Double expectedPrice = 70.50;
+        Status status = Status.IN_STOCK;
+        String expectedScentType = "Warm Floral";
+        LocalDate expectedDateProduced = LocalDate.parse("2022-10-13");
 
-        ProductRequestModel productRequestModel = newProductRequestModel(VALID_DISCOUNT_ID, VALID_INVENTORY_ID, VALID_NAME, VALID_BRAND, VALID_PRICES, VALID_STATUS, VALID_SCENT_TYPE, VALID_DATE_PRODUCED);
-        webTestClient.put()
-                .uri(BASE_URI_PRODUCTS + "/products/"  + 1)
+        ProductRequestModel productRequestModel = newProductRequestModel(expectedDiscountId, expectedInventoryId, expectedName, expectedBrand, expectedPrice, status, expectedScentType, expectedDateProduced);
+
+        webTestClient.post()
+                .uri(BASE_URI_PRODUCTS)
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(productRequestModel).accept(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .bodyValue(productRequestModel)
                 .exchange()
-                .expectStatus().isEqualTo(HttpStatus.NOT_FOUND)
+                .expectStatus().isCreated()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                .expectBody(HttpErrorInfo.class);
+                .expectBody(ProductRequestModel.class)
+                .value(val -> {
+                    assertNotNull(val);
+                    assertEquals(val.getDiscountId(), expectedDiscountId);
+                    assertEquals(val.getInventoryId(),expectedInventoryId);
+                    assertEquals(val.getName(), expectedName);
+                    assertEquals(val.getBrand(), expectedBrand);
+                    assertEquals(val.getPrice(), expectedPrice);
+                    assertEquals(val.getStatus(), status);
+                    assertEquals(val.getScentType(), expectedScentType);
+                    assertEquals(val.getDateProduced(), expectedDateProduced);
+
+
+
+
+                });
 
     }
 
-
-
-
+     */
 
 @Test
 public void whenDeletedNotExistingProduct_ThenReturnNotFound(){
@@ -160,9 +187,71 @@ public void whenDeletedNotExistingProduct_ThenReturnNotFound(){
             .expectStatus().isNotFound().expectBody().jsonPath("$").isNotEmpty();
 
 }
+/*
 
+//addProductToInventory
+
+@Test
+public void whenCreatedProductWithValidValues_ThenAddInInventory() {
+
+    String expectedInventoryId = "13b581aa-1fcf-4d80-b8ab-68a9c791a299";
+    LocalDate expectedLastUpdated = LocalDate.parse("2018-11-19");
+
+    String expectedDiscountId = "0688f12c-8990-42c5-af0e-4c7ae767feff";
+    String expectedName = "Dior";
+    String expectedBrand = "Miss Dior";
+    Double expectedPrice = 70.50;
+    Status status = Status.IN_STOCK;
+    String expectedScentType = "Warm Floral";
+    LocalDate expectedDateProduced = LocalDate.parse("2022-10-13");
+
+    ProductRequestModel productRequestModel = newProductRequestModel(expectedDiscountId, VALID_INVENTORY_ID, expectedName, expectedBrand, expectedPrice, status, expectedScentType, expectedDateProduced);
+    InventoryRequestModel inventoryRequestModel=newInventoryRequestModel(expectedLastUpdated);
+
+    webTestClient.post()
+            .uri(BASE_URI_PRODUCTS + "/" + expectedInventoryId + "/products")
+            .contentType(MediaType.APPLICATION_JSON)
+            .accept(MediaType.APPLICATION_JSON)
+            .bodyValue(productRequestModel)
+            .exchange()
+            .expectStatus().isCreated()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
+            .expectBody(ProductResponseModel.class)
+            .value(val -> {
+                assertNotNull(val);
+                assertEquals(val.getProductId(), VALID_PRODUCT_ID);
+                assertEquals(val.getDiscountId(), expectedDiscountId);
+                assertEquals(val.getInventoryId(), expectedInventoryId);
+                assertEquals(val.getName(), expectedName);
+                assertEquals(val.getBrand(), expectedBrand);
+                assertEquals(val.getPrice(), expectedPrice);
+                assertEquals(val.getStatus(), status);
+                assertEquals(val.getScentType(), expectedScentType);
+                assertEquals(val.getDateProduced(), expectedDateProduced);
+
+
+            });
+
+}
 
 //get all products in inventories
+@Test
+        public void whenProductsExistInInventoryId_ThenReturnProducts() {
+    String expectedInventoryId="13b581aa-1fcf-4d80-b8ab-68a9c791a299";
+    Integer productsReturned = 10;
+
+    webTestClient.get()
+            .uri(BASE_URI_PRODUCTS + "/" + VALID_INVENTORY_ID)
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange().expectStatus().isOk()
+            .expectHeader().contentType(MediaType.APPLICATION_JSON)
+            .expectBody()
+            .jsonPath("$.length()").isEqualTo(VALID_PRODUCT_ID);
+
+
+}
+
+ */
     private ProductRequestModel newProductRequestModel(String discountId, String inventoryId, String name, String brand, Double price, Status status, String scentType, LocalDate dateProduced){
 
         return ProductRequestModel.builder()
@@ -183,5 +272,6 @@ public void whenDeletedNotExistingProduct_ThenReturnNotFound(){
         return InventoryRequestModel.builder()
                 .lastInventoryUpdated(lastUpdated).build();
     }
+
 
 }

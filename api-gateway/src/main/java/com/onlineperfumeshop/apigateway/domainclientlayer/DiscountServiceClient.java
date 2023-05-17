@@ -31,8 +31,8 @@ public class DiscountServiceClient {
 
     public DiscountServiceClient(RestTemplate restTemplate,
                                ObjectMapper objectMapper,
-                               @Value("${app.product-service.host}") String discountsServiceHost,
-                               @Value("${app.product-service.port}") String discountsServicePort) {
+                               @Value("${app.products-service.host}") String discountsServiceHost,
+                               @Value("${app.products-service.port}") String discountsServicePort) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
         this.DISCOUNT_SERVICE_BASE_URL = "http://" + discountsServiceHost + ":" + discountsServicePort + "/api/v1/discounts";
@@ -105,7 +105,7 @@ public class DiscountServiceClient {
 
 
     public DiscountResponseModel[] getDiscounts() {
-        DiscountResponseModel[] discountResponseModels = null;
+        DiscountResponseModel discountResponseModels[] = null;
         try {
             String url = DISCOUNT_SERVICE_BASE_URL ;
             discountResponseModels = restTemplate

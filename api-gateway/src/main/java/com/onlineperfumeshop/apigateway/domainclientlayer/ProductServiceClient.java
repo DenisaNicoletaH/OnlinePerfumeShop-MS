@@ -27,8 +27,8 @@ public class ProductServiceClient {
 
     public ProductServiceClient(RestTemplate restTemplate,
                                ObjectMapper objectMapper,
-                               @Value("${app.product-service.host}") String productsServiceHost,
-                               @Value("${app.product-service.port}") String productsServicePort) {
+                               @Value("${app.products-service.host}") String productsServiceHost,
+                               @Value("${app.products-service.port}") String productsServicePort) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
         this.PRODUCT_SERVICE_BASE_URL = "http://" + productsServiceHost + ":" + productsServicePort + "/api/v1/products";
@@ -117,7 +117,7 @@ public class ProductServiceClient {
 
 
     public ProductResponseModel[] getProducts() {
-        ProductResponseModel[] productResponseModels = null;
+        ProductResponseModel productResponseModels[] = null;
         try {
             String url = PRODUCT_SERVICE_BASE_URL ;
             productResponseModels = restTemplate
@@ -136,7 +136,7 @@ public class ProductServiceClient {
 
 
     public ProductResponseModel[] getProductByDiscountId(String discountId) {
-        ProductResponseModel[] productResponseModel = null;
+        ProductResponseModel productResponseModel[] = null;
         try {
             String url = PRODUCT_SERVICE_BASE_URL + "/" + discountId ;
             productResponseModel = restTemplate

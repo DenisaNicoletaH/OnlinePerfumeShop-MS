@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class DeliveryIdentifier {
 
-    private final String deliveryId;
+    private String deliveryId;
 
     public DeliveryIdentifier() {
         this.deliveryId = UUID.randomUUID().toString();
