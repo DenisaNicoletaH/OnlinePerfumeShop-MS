@@ -1,5 +1,6 @@
 package com.onlineperfumeshop.deliveryservice.Utils;
 
+import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.ConflictDeliveryException;
 import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.DeliveryInvalidInputException;
 import com.onlineperfumeshop.deliveryservice.Utils.Exceptions.DeliveryNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -18,14 +19,16 @@ import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 public class CheckoutGlobalControllerExceptionHandler {
 
     //Duplication Exception
-    /*
     @ResponseStatus(CONFLICT)
     @ExceptionHandler(ConflictDeliveryException.class)
     public HttpErrorInfo handleConflictDeliveryException(WebRequest request, Exception ex) {
         return createHttpErrorInfo(CONFLICT, request, ex);
     }
-
-     */
+    @ResponseStatus(UNPROCESSABLE_ENTITY)
+    @ExceptionHandler(DeliveryNotFoundException.class)
+    public HttpErrorInfo handleDeliveryNotFoundException(WebRequest request, Exception ex) {
+        return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, ex);
+    }
 
     @ResponseStatus(UNPROCESSABLE_ENTITY)
     @ExceptionHandler(DeliveryInvalidInputException.class)

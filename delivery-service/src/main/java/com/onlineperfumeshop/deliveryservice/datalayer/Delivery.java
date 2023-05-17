@@ -1,55 +1,45 @@
 package com.onlineperfumeshop.deliveryservice.datalayer;
 
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
+
 import java.time.LocalDate;
 import java.util.Date;
 
-@Document(collection = "deliveries")
+@Entity
+@Table(name = "deliveries")
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Delivery {
 
 
-    // Id OR id
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer Id;
 
-     CheckoutIdentifier checkoutIdentifier;
+    @Embedded
+    private CheckoutIdentifier checkoutIdentifier;
 
-    DeliveryIdentifier deliveryIdentifier;
-    ClientIdentifier clientIdentifier;
-
-
-    private String clientFirstName;
-
-    private String clientLastName;
-
-
-
-
+    @Embedded
+    private DeliveryIdentifier deliveryIdentifier;
 
     private String warehouseLocation;
 
+    @Embedded
+    private ClientIdentifier clientIdentifier;
+    @Embedded
     private Address address;
 
+    @Embedded
     private Phone phone;
 
 
     private LocalDate arrivalTime;
 
 
+  @Enumerated(EnumType.STRING)
     private ShippingUpdate shippingUpdate;
-
 
 
     public Delivery(CheckoutIdentifier checkoutIdentifier,String warehouseLocation, ClientIdentifier clientIdentifier, Address address, Phone phone, LocalDate arrivalTime, ShippingUpdate shippingUpdate) {
@@ -63,6 +53,11 @@ public class Delivery {
         this.shippingUpdate = shippingUpdate;
     }
 
+    public Delivery() {
+        this.deliveryIdentifier=new DeliveryIdentifier();
+    }
+
+
     public @NotNull String getWarehouseLocation() {
         return warehouseLocation;
     }
@@ -73,6 +68,4 @@ public class Delivery {
     public  @NotNull LocalDate getArrivalTime() {
         return arrivalTime;
     }
-
-
 }

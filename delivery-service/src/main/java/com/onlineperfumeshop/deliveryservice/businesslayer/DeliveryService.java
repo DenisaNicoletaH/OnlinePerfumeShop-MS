@@ -1,5 +1,6 @@
 package com.onlineperfumeshop.deliveryservice.businesslayer;
 
+import com.onlineperfumeshop.deliveryservice.datalayer.DeliveryIdentifier;
 import com.onlineperfumeshop.deliveryservice.presentationlayer.DeliveryRequestModel;
 import com.onlineperfumeshop.deliveryservice.presentationlayer.DeliveryResponseModel;
 
@@ -9,8 +10,6 @@ public interface DeliveryService {
 
 
     DeliveryResponseModel addDelivery(DeliveryRequestModel deliveryRequestModel);
-
-   //DeliveryResponseModel addDelivery(DeliveryRequestModel deliveryRequestModel);
 
     DeliveryResponseModel getDeliveryByIdentifier(String deliveryId);
 

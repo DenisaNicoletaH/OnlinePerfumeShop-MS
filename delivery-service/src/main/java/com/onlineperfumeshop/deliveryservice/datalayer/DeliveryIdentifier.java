@@ -10,9 +10,6 @@ public class DeliveryIdentifier {
         this.deliveryId = UUID.randomUUID().toString();
     }
 
-    public DeliveryIdentifier(String deliveryId) {
-        this.deliveryId = deliveryId;
-    }
 
     public String getDeliveryId() {return this.deliveryId;}
 
