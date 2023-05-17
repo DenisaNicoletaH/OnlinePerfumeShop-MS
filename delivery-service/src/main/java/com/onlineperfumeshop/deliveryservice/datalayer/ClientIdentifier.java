@@ -3,7 +3,7 @@ package com.onlineperfumeshop.deliveryservice.datalayer;
 import java.util.UUID;
 
 public class ClientIdentifier {
-    private String clientId;
+    private final String clientId;
 
     public ClientIdentifier() {
         this.clientId = UUID.randomUUID().toString();
