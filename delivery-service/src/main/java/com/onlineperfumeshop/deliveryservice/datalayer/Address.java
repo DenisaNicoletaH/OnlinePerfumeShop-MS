@@ -1,17 +1,12 @@
 package com.onlineperfumeshop.deliveryservice.datalayer;
 
 
+import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Objects;
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+
+@Embeddable
 public class Address {
 
 
@@ -22,7 +17,7 @@ public class Address {
     public String postalCode;
 
 
-/*
+
     @SuppressWarnings("unused")
      public Address() {
     }
@@ -58,7 +53,6 @@ public class Address {
         return postalCode;
     }
 
- */
 
 
 }

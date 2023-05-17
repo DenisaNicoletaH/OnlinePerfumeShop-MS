@@ -1,24 +1,18 @@
 package com.onlineperfumeshop.deliveryservice.datalayer;
 
+import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@Embeddable
+
 public class Phone {
 
 
     public String phoneNumber;
     public String countryCode;
 
-    /*
 public Phone(@NotNull String phoneNumber, @NotNull String countryCode){
     Objects.requireNonNull(this.phoneNumber = phoneNumber);
     Objects.requireNonNull(this.countryCode = countryCode);
@@ -33,8 +27,6 @@ public Phone(@NotNull String phoneNumber, @NotNull String countryCode){
 public @NotNull String getCountryCode() {
     return countryCode;
 }
-
-     */
 
 
 }
